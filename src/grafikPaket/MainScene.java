@@ -18,15 +18,15 @@ public class MainScene extends Application{
 		primaryStage.setTitle("Plant on Zombie Warfare");
 		
 		StackPane root = new StackPane();
-		HBox layout = new HBox();
+//		HBox layout = new HBox();
 		Background canvas = new Background();
 		
 		canvas.drawGrid();
 		
-//		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
-//		ImageView iv = new ImageView(background);
+		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
+		ImageView iv = new ImageView(background);
 		
-		root.getChildren().addAll(canvas);
+		root.getChildren().addAll(iv, canvas);
 		
 		Scene primaryScene = new Scene(root, 1439, 899);
 		primaryStage.setResizable(false);

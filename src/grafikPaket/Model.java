@@ -4,19 +4,22 @@ import java.util.ArrayList;
 
 public class Model {
 	
-	private ArrayList<Rect> gridPos;
+	private ArrayList<ArrayList<Rect>> gridPos = new ArrayList<ArrayList<Rect>>();
 	
 	public Model() {
-		gridPos = new ArrayList<Rect>();
+		for (int i = 0; i < 5; i++) {
+			ArrayList<Rect> temp = new ArrayList<Rect>();
+			gridPos.add(temp);
+		}
 	}
 
-	
-	public void addGridRect(Rect rect) {
-		gridPos.add(rect);
+	public void addGridRect(Rect rect, int row) {
+		
+			gridPos.get(row).add(rect);
 	}
 	
-	public Rect getGridRect(int pos, int row) {
+	public ArrayList<ArrayList<Rect>> getGridRect() {
 		
-		return gridPos.get(pos * (row + 1));
+		return gridPos;
 	}
 }

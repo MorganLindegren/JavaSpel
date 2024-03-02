@@ -19,5 +19,18 @@ public class Rect extends Shape {
 	public void drawRect(GraphicsContext context) {
 		context.setFill(getColor());
 		context.fillRect(getX(), getY(), 180, 180);
+		context.setFill(Color.BLACK);
+//		context.fillRect(getX(), getY(), 3, 180);
+		context.fillRect(getX(), getX(), 180, 3);
+//		context.fillRect(getX() + 180, getY(), 180, 3);
+		context.setStroke(Color.GREY);
+		context.stroke();
+	}
+	
+	public void addTowerTest(GraphicsContext context) {
+		
+		context.setFill(Color.BLACK);
+		context.fillRect(getX() + 60, getX() + 60, 60, 60);
+		
 	}
 }
