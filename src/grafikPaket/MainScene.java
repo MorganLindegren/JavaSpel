@@ -1,6 +1,7 @@
 package grafikPaket;
 
 import javafx.application.Application;
+import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Scene;
@@ -15,22 +16,22 @@ public class MainScene extends Application{
 	
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Plant on Zombie Warfare");
-//		primaryStage.setWidth(1334); 
-//		primaryStage.setHeight(774);
 		
+		StackPane root = new StackPane();
 		HBox layout = new HBox();
 		Background canvas = new Background();
 		
+		canvas.drawGrid();
 		
-		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
-		ImageView iv = new ImageView(background);
+//		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
+//		ImageView iv = new ImageView(background);
 		
-		layout.getChildren().add(iv);
-		layout.getChildren().add(canvas);
+		root.getChildren().addAll(canvas);
 		
-		Scene primaryScene = new Scene(layout, 1439, 899);
+		Scene primaryScene = new Scene(root, 1439, 899);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(primaryScene);
 		primaryStage.show();
+
 	}
 }
