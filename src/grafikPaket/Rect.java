@@ -27,10 +27,11 @@ public class Rect extends Shape {
 		context.stroke();
 	}
 	
-	public void addTowerTest(GraphicsContext context) {
+	public void addTowerPos(GraphicsContext context) {
 		
-		context.setFill(Color.BLACK);
-		context.fillRect(getX() + 60, getX() + 60, 60, 60);
+		context.setFill(getColor());
+		context.fillRect(getX()+ 60, getY() + 60, 60, 60);
+		
 		
 	}
 }
