@@ -4,14 +4,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Background extends Canvas{
+public class Interface extends Canvas{
 	
 	private Model gridModel = new Model();
 	
 	
 	private GraphicsContext context = getGraphicsContext2D();
 
-	public Background() {
+	public Interface() {
 		setWidth(1440);
 		setHeight(900);
 		setStyle("-fx-background-color: #a31239;"); 
@@ -82,9 +82,6 @@ public class Background extends Canvas{
 //		gridModel.getGridRect(eventX(, eventY()))
 		
 		gridModel.getGridRect(1, 4).addTowerModel(context);
-		
-		ProjectileSprite projectile = new ProjectileSprite(180, 180, Color.WHITE);
-		projectile.drawYourself(context);
 		
 	}
 }

@@ -22,6 +22,16 @@ public abstract class Shape {
 		return y;
 	}
 	
+	public int setX(int x) {
+		
+		return this.x = x;
+	}
+	
+	public int setY(int y) {
+		
+		return this.x = y;
+	}
+	
 	public Color getColor() {
 		return myColor;
 	}

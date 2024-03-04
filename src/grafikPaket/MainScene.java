@@ -19,7 +19,7 @@ public class MainScene extends Application{
 		
 		StackPane root = new StackPane();
 //		HBox layout = new HBox();
-		Background canvas = new Background();
+		Interface canvas = new Interface();
 		
 		canvas.drawGrid();
 		
