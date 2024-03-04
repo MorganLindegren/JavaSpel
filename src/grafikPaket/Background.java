@@ -8,6 +8,7 @@ public class Background extends Canvas{
 	
 	private Model gridModel = new Model();
 	
+	
 	private GraphicsContext context = getGraphicsContext2D();
 
 	public Background() {
@@ -38,6 +39,14 @@ public class Background extends Canvas{
 			ymulti += 180;
 			
 		}
+		
+		setOnMouseClicked(event -> {
+			int x = (int) event.getX();
+			int y = (int) event.getY();
+			Rect towerModel = new Rect(x, y, Color.BLACK);
+			towerModel.addTowerModel(context);
+			
+		});
 		
 		gridModel.getGridRect(1, 1).addTowerModel(context);
 		

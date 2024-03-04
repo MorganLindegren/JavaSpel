@@ -12,6 +12,7 @@ public class Model {
 			gridPos.add(temp);
 		}
 	}
+	
 
 	public void addGridRect(Rect rect, int row) {
 		

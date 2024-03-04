@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Rect extends Shape {
+	
+	private Model myModel = new Model();
 
 	public Rect(int x, int y, Color myColor) {
 		super(x, y, myColor);
@@ -38,8 +40,8 @@ public class Rect extends Shape {
 	public void addTowerModel(GraphicsContext context) {
 		
 		context.setFill(Color.BLACK);
-		context.clearRect(getX() + 60, getX() + 60, 60, 60);
-		context.fillRect(getX()+ 60, getY() + 60, 60, 60);
+		context.clearRect(getX(), getX(), 60, 60);
+		context.fillRect(getX(), getY(), 60, 60);
 		
 	}
 }
