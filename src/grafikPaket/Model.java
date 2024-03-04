@@ -8,7 +8,7 @@ public class Model {
 	
 	public Model() {
 		for (int i = 0; i < 5; i++) {
-			ArrayList<Rect> temp = new ArrayList<Rect>();
+			ArrayList<Rect> temp = new ArrayList<Rect>(8);
 			gridPos.add(temp);
 		}
 	}

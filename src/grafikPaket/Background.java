@@ -43,12 +43,45 @@ public class Background extends Canvas{
 		setOnMouseClicked(event -> {
 			int x = (int) event.getX();
 			int y = (int) event.getY();
-			Rect towerModel = new Rect(x, y, Color.BLACK);
-			towerModel.addTowerModel(context);
+			
+			if (x < 181) {
+				x = 0;
+			} else if (x < 361){
+				x = 1;
+			} else if (x < 541){
+				x = 2;
+			} else if (x < 721){
+				x = 3;
+			} else if (x < 901){
+				x = 4;
+			} else if (x < 1081){
+				x = 5;
+			} else if (x < 1261){
+				x = 6;
+			} else if (x < 1441){
+				x = 7;
+			}
+			
+			
+			if (y < 181) {
+				y = 0;
+			} else if (y < 361){
+				y = 1;
+			} else if (y < 541){
+				y = 2;
+			} else if (y < 721){
+				y = 3;
+			} else if (y < 901){
+				y = 4;
+			}
+			
+			gridModel.getGridRect(y, x).addTowerModel(context);
 			
 		});
 		
-		gridModel.getGridRect(1, 1).addTowerModel(context);
+//		gridModel.getGridRect(eventX(, eventY()))
+		
+		gridModel.getGridRect(1, 4).addTowerModel(context);
 		
 		ProjectileSprite projectile = new ProjectileSprite(180, 180, Color.WHITE);
 		projectile.drawYourself(context);
