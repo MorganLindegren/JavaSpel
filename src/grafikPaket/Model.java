@@ -18,8 +18,8 @@ public class Model {
 			gridPos.get(row).add(rect);
 	}
 	
-	public ArrayList<ArrayList<Rect>> getGridRect() {
+	public Rect getGridRect(int row, int column) {
 		
-		return gridPos;
+		return gridPos.get(row).get(column);
 	}
 }

@@ -34,4 +34,12 @@ public class Rect extends Shape {
 		
 		
 	}
+	
+	public void addTowerModel(GraphicsContext context) {
+		
+		context.setFill(Color.BLACK);
+		context.clearRect(getX() + 60, getX() + 60, 60, 60);
+		context.fillRect(getX()+ 60, getY() + 60, 60, 60);
+		
+	}
 }
