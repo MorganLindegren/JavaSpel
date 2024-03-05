@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 
 public class Tower extends Model {
 	
-	
 	public Tower() {
 	
 	}

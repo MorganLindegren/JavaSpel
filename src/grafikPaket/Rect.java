@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 public class Rect extends Shape {
 	
 	private Boolean occupiedSpace = false;
+	private ProjectileSprite projectile = new ProjectileSprite(0, 0, Color.WHITE);
 
 	public Rect(int x, int y, Color myColor) {
 		super(x, y, myColor);
@@ -43,10 +44,21 @@ public class Rect extends Shape {
 			context.setFill(new Color(0, 0, 0, 0.5));
 			context.clearRect(getX() + 60, getY() + 60, 60, 60);
 			context.fillRect(getX()+ 60, getY() + 60, 60, 60);
+			projectile.setPos(getX()+60,getY()+75);
+			shoot(context);
 			
 			occupiedSpace = true;
+			
 		} else {
 			return;
 		}	
 	}
+	
+	public void shoot(GraphicsContext context) {
+		
+		projectile.setPos((int)projectile.getHitbox().x,(int)projectile.getHitbox().y);
+		projectile.updatePos();
+		projectile.drawYourself(context);
+	}
+
 }

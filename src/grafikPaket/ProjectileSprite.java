@@ -5,12 +5,13 @@ import java.awt.geom.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class ProjectileSprite {
+public class ProjectileSprite extends Shape {
 	
 	private Rectangle2D.Float hitbox;
 	private boolean active = true;
 	
-	public ProjectileSprite(int x, int y) {
+	public ProjectileSprite(int x, int y, Color myColor) {
+		super(x, y, myColor);
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
 	}
 	
@@ -31,8 +32,13 @@ public class ProjectileSprite {
 		this.active = active;
 	}
 	
+	public void drawYourself(GraphicsContext context) {
+		context.setFill(Color.WHITE);
+		context.fillOval(hitbox.x, hitbox.y, 30, 30);
+	}
+
+	
 	public boolean isActive() {
 		return active;
 	}
-
 }

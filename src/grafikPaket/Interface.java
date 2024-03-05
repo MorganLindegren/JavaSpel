@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 public class Interface extends Canvas{
 	
 	private Model gridModel = new Model();
+	private Rect tower = new Rect(60, 60, new Color(0,0,0,0.5));
 	
 	
 	private GraphicsContext context = getGraphicsContext2D();
@@ -15,6 +16,10 @@ public class Interface extends Canvas{
 		setWidth(1440);
 		setHeight(900);
 		setStyle("-fx-background-color: #a31239;"); 
+		
+	}
+	
+	public void update() {
 		
 	}
 	
@@ -75,13 +80,8 @@ public class Interface extends Canvas{
 				y = 4;
 			}
 			
-			gridModel.getGridRect(y, x).addTowerModel(context);
-			
+			gridModel.getGridRect(y, x).addTowerModel(context);	
 		});
-		
-//		gridModel.getGridRect(eventX(, eventY()))
-		
-		gridModel.getGridRect(1, 4).addTowerModel(context);
 		
 	}
 }
