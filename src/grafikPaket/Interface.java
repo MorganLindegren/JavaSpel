@@ -81,6 +81,7 @@ public class Interface extends Canvas{
 			}
 			
 			gridModel.getGridRect(y, x).addTowerModel(context);	
+			this.tower.shoot(tower.getX(), tower.getY());
 		});
 		
 	}

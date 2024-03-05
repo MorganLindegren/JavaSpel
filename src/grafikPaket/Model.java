@@ -13,6 +13,10 @@ public class Model {
 		}
 	}
 	
+	public ArrayList<ArrayList<TowerSprite>> getContents() {
+		return gridPos;
+	}
+	
 
 	public void addGridRect(TowerSprite rect, int row) {
 		

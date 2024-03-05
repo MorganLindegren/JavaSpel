@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,34 +37,26 @@ public class MainScene extends Application{
 		final double targetFps = 60.0;
 		final double nanoPerUpdate = 10000000000.0 / targetFps;
 		
-		Rectangle rect = new Rectangle(1300,0);
-		rect.setLayoutX(-660);
-		rect.setLayoutY(-360);
-		Circle circ = new Circle(30, Color.WHITE);
-		PathTransition pt = new PathTransition();
-		
-		pt.setNode(circ);
-		pt.setPath(rect);
-		pt.setDuration(Duration.seconds(3));
-		pt.setAutoReverse(false);
-		pt.setCycleCount(Animation.INDEFINITE);
-		pt.play();
-		
-		StackPane root = new StackPane();
+		StackPane pane = new StackPane();
 //		HBox layout = new HBox();
 		Interface canvas = new Interface();
+		GraphicsContext context = canvas.getGraphicsContext2D();
 		
 		canvas.drawGrid();
 		
 		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
 		ImageView iv = new ImageView(background);
 		
-		root.getChildren().addAll(iv, canvas, circ);	
-		Scene primaryScene = new Scene(root, 1439, 899);
+		Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
+		loop.setCycleCount(Animation.INDEFINITE);
+		loop.play();
+		
+		pane.getChildren().addAll(iv, canvas);	
+		Scene primaryScene = new Scene(pane, 1439, 899);
 		
 		//----------Main menu---------
 		Text gameName = new Text();
-		gameName.setText("Plant on Zombie Warfare");
+		gameName.setText("Foliage VS Undead");
 		gameName.setFont(Font.font("comic_sans", FontWeight.BOLD, FontPosture.REGULAR, 80));
 		
 		Button startButton = new Button("Start Game");
@@ -91,5 +84,14 @@ public class MainScene extends Application{
 		primaryStage.setScene(MenuScene);
 		primaryStage.show();
 
+	}
+	private void update(GraphicsContext context) {
+		Model myModel = new Model();
+		context.clearRect(0, 0, 1440, 900);
+		
+		for (TowerSprite tower : Model.getContents()) {
+			tower.drawYourself(context);
+		}
+		
 	}
 }
