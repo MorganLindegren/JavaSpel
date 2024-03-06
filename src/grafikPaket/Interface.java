@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 public class Interface extends Canvas{
 	
 	private Model gridModel = new Model();
-	private TowerSprite tower = new TowerSprite(60, 60, new Color(0,0,0,0.5));
-	
 	
 	private GraphicsContext context = getGraphicsContext2D();
 
@@ -34,7 +32,6 @@ public class Interface extends Canvas{
 			for (int i = 0; i < 8; i++) {
 				
 				TowerSprite rect = new TowerSprite(xmulti, ymulti, new Color(0, 0, 0, 0.0));
-				rect.addTowerPos(context);
 				gridModel.addGridRect(rect, row);
 				
 				xmulti += 180;
@@ -80,8 +77,8 @@ public class Interface extends Canvas{
 				y = 4;
 			}
 			
-			gridModel.getGridRect(y, x).addTowerModel(context);	
-			this.tower.shoot(tower.getX(), tower.getY());
+			gridModel.getGridRect(y, x).addTowerModel(context);
+//			gridModel.getGridRect(y, x).shoot(context);
 		});
 		
 	}

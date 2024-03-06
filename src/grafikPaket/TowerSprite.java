@@ -3,7 +3,9 @@ package grafikPaket;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,12 +15,17 @@ import javafx.util.Duration;
 
 public class TowerSprite extends Shape {
 	
-	private Boolean occupiedSpace = false;
 	private double x, y;
 	private ArrayList<ProjectileSprite> bullets = new ArrayList<>();
+	private Boolean occupiedSpace = false;
+	private Timeline loop;
 
 	public TowerSprite(int x, int y, Color myColor) {
 		super(x, y, myColor);
+		
+		loop = new Timeline();
+		loop.setCycleCount(Animation.INDEFINITE);
+		loop.play();
 	}
 	
 	public void drawYourself(GraphicsContext context, double xsize, double ysize) {
@@ -37,50 +44,44 @@ public class TowerSprite extends Shape {
 		context.stroke();
 	}
 	
-	public void addTowerPos(GraphicsContext context) {
+	public void drawTower(GraphicsContext context) {
 		
-		context.setFill(getColor());
-		context.fillRect(getX() + 60, getY() + 60, 60, 60);
-		
+		if (occupiedSpace) {
+			context.setFill(new Color(0, 0, 0, 0.5));
+			context.fillRect(getX() + 60, getY() + 60, 60, 60);
+			update(context);
+		}
 		
 	}
 	
 	public void addTowerModel(GraphicsContext context) {
 		
-		if (!occupiedSpace) {
-			context.setFill(new Color(0, 0, 0, 0.5));
-			context.clearRect(getX() + 60, getY() + 60, 60, 60);
-			context.fillRect(getX()+ 60, getY() + 60, 60, 60);
-			occupiedSpace = true;
+		occupiedSpace = true;
+		context.setFill(new Color(0, 0, 0, 0.5));
+		context.fillRect(getX()+ 60, getY() + 60, 60, 60);
 			
-		} else {
-			return;
-		}	
 	}
 	
-	public void setUnOccupied() {
-		occupiedSpace = false;
-	}
-	
-	public void shoot(double x, double y) {
-		double angle = 90;
-		ProjectileSprite bullet = new ProjectileSprite(angle, 30, 30, Color.WHITE);
-		this.bullets.add(bullet);
+	public void shoot(GraphicsContext context) {
+		int x = getX() + 75;
+		int y = getY() + 75;
 		
-//		Rectangle rect = new Rectangle(1300,0);
-//		rect.setLayoutX(-660);
-//		rect.setLayoutY(-360);
-//		Circle circ = new Circle(30, Color.WHITE);
-//		PathTransition pt = new PathTransition();
-//		Bounds projCoords = circ.localToScreen(circ.getBoundsInLocal());
-//	
-//		pt.setNode(circ);
-//		pt.setPath(rect);
-//		pt.setDuration(Duration.seconds(3));
-//		pt.setAutoReverse(false);
-//		pt.setCycleCount(Animation.INDEFINITE);
-//		pt.play();
-//		
+		double angle = 90;
+		ProjectileSprite bullet = new ProjectileSprite(angle, 30, 30, Color.WHITE, this);
+		this.bullets.add(bullet);
+		bullet.setPos(x, y);
+		bullet.drawYourself(context);	
+	}
+	
+	public ArrayList<ProjectileSprite> getBullets(){
+		return bullets;
+	}
+	
+	public void update(GraphicsContext context) {
+		
+		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/30), event -> update(context)));
+		shoot(context);
+		
 	}
 
 }
