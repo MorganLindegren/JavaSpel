@@ -89,4 +89,8 @@ public class Interface extends Canvas{
 	public Model getIFmodel() {
 		return gridModel;
 	}
+	
+	public Boolean checkIfmodelEmpty() {
+		return gridModel.checkGridEmpty();
+	}
 }

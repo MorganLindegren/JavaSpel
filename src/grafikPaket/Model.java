@@ -16,15 +16,18 @@ public class Model {
 	public ArrayList<ArrayList<TowerSprite>> getContents() {
 		return gridPos;
 	}
-	
 
 	public void addGridRect(TowerSprite rect, int row) {
 		
-			gridPos.get(row).add(rect);
+		gridPos.get(row).add(rect);
 	}
 	
 	public TowerSprite getGridRect(int row, int column) {
 		
 		return gridPos.get(row).get(column);
+	}
+	
+	public Boolean checkGridEmpty() {
+		return gridPos.isEmpty();
 	}
 }

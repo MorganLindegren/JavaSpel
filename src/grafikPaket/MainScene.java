@@ -92,13 +92,17 @@ public class MainScene extends Application{
 	private void update(GraphicsContext context) {
 		context.clearRect(0, 0, 1440, 900);
 		
-		for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
+		if (!(canvas == null)) {
 			
-			for (int i = 0; i < 8; i++ ) {
+			for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
 				
-				list.get(i).drawYourself(context);
-				
-			}		
-		}	
+				for (int i = 0; i < 8; i++ ) {
+					
+					if (!(list.get(i) == null)) {
+						list.get(i).drawYourself(context);
+					}
+				}		
+			}	
+		}
 	}
 }
