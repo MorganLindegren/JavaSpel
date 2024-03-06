@@ -22,9 +22,13 @@ import javafx.util.Duration;
 
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 import javafx.animation.*;
 
 public class MainScene extends Application{
+	
+	Interface canvas;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -86,12 +90,15 @@ public class MainScene extends Application{
 
 	}
 	private void update(GraphicsContext context) {
-		Model myModel = new Model();
 		context.clearRect(0, 0, 1440, 900);
 		
-		for (TowerSprite tower : Model.getContents()) {
-			tower.drawYourself(context);
-		}
-		
+		for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
+			
+			for (int i = 0; i < 8; i++ ) {
+				
+				list.get(i).drawYourself(context);
+				
+			}		
+		}	
 	}
 }
