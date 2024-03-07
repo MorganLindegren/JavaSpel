@@ -10,14 +10,14 @@ public class ProjectileSprite extends Shape {
 	private Rectangle2D.Float hitbox;
 	private boolean active = true;
 	private static final double speed = 3;
-	private double angle, x,y;
+	private double  x,y;
+	private TowerSprite tower;
 	
-	public ProjectileSprite(double angle, int x, int y, Color myColor, TowerSprite Tower) {
+	public ProjectileSprite( int x, int y, Color myColor, TowerSprite Tower) {
 		super(x, y, myColor);
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
 		this.x = Tower.getX();
 		this.y = Tower.getY();
-		this.angle = angle;
 	}
 	
 	public void updatePos() {
@@ -25,12 +25,12 @@ public class ProjectileSprite extends Shape {
 	}
 	
 	public void setPos(double x, double y) {
-		hitbox.x = (float) (x + 75);
-		hitbox.y = (float) (y + 75);
+		hitbox.x = (float) (x + 25);
+		hitbox.y = (float) (y);
 	}
 	
-	public Rectangle2D.Float getHitbox(){
-		return hitbox;
+	public float getHitbox(){
+		return hitbox.x;
 	}
 	
 	public void setActive(boolean active) {

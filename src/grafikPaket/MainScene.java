@@ -34,7 +34,7 @@ public class MainScene extends Application{
 		launch(args);
 	}
 	
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws Exception {
 		
 		//----------Game Scene--------
 		primaryStage.setTitle("Plant on Zombie Warfare");
@@ -54,6 +54,10 @@ public class MainScene extends Application{
 		loop.setCycleCount(Animation.INDEFINITE);
 		loop.play();
 		
+		Timeline projLoop = new Timeline(new KeyFrame(Duration.millis(1000.0/10), event -> updateProjectiles(context)));
+		projLoop.setCycleCount(Animation.INDEFINITE);
+		projLoop.play();
+
 		pane.getChildren().addAll(iv, canvas);	
 		Scene primaryScene = new Scene(pane, 1439, 899);
 		
@@ -83,13 +87,12 @@ public class MainScene extends Application{
 		Scene MenuScene = new Scene(menuRoot, 1440, 900);
 		
 		primaryStage.setResizable(false);
-//		primaryStage.setScene(primaryScene);
 		primaryStage.setScene(MenuScene);
 		primaryStage.show();
 
 	}
 	
-	private void update(GraphicsContext context) {
+	public void update(GraphicsContext context) {
 		
 		context.clearRect(0, 0, 1440, 900);
 		
@@ -100,12 +103,24 @@ public class MainScene extends Application{
 				for (int i = 0; i < 8; i++ ) {
 
 					list.get(i).drawTower(context);
-					
+				}					
+			}			
+		}
+	}
+	
+	public void updateProjectiles(GraphicsContext context) {
+		
+		if (!(canvas == null)) {
+			
+			for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
+				
+				for (int i = 0; i < 8; i++ ) {
+
 					for (int y = 0; y < list.get(i).getBullets().size(); y++) {
 						
-						list.get(i).getBullets().get(y).drawYourself(context);
-					}					
-				}			
+						list.get(i).shoot(context);
+					}
+				}					
 			}			
 		}
 	}

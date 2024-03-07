@@ -66,15 +66,22 @@ public class TowerSprite extends Shape {
 		int x = getX() + 75;
 		int y = getY() + 75;
 		
-		double angle = 90;
-		ProjectileSprite bullet = new ProjectileSprite(angle, 30, 30, Color.WHITE, this);
+		ProjectileSprite bullet = new ProjectileSprite(30, 30, Color.WHITE, this);
 		this.bullets.add(bullet);
 		bullet.setPos(x, y);
 		bullet.drawYourself(context);	
+		
+		if (bullet.getHitbox() == 1260) {
+			collision();
+		}
 	}
 	
 	public ArrayList<ProjectileSprite> getBullets(){
 		return bullets;
+	}
+	
+    public void collision() {
+		bullets.remove(0);
 	}
 	
 	public void update(GraphicsContext context) {
