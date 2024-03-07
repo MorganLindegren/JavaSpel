@@ -28,7 +28,7 @@ import javafx.animation.*;
 
 public class MainScene extends Application{
 	
-	Interface canvas;
+	private Interface canvas = new Interface();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -43,7 +43,6 @@ public class MainScene extends Application{
 		
 		StackPane pane = new StackPane();
 //		HBox layout = new HBox();
-		Interface canvas = new Interface();
 		GraphicsContext context = canvas.getGraphicsContext2D();
 		
 		canvas.drawGrid();
@@ -61,7 +60,7 @@ public class MainScene extends Application{
 		//----------Main menu---------
 		Text gameName = new Text();
 		gameName.setText("Foliage VS Undead");
-		gameName.setFont(Font.font("comic_sans", FontWeight.BOLD, FontPosture.REGULAR, 80));
+		gameName.setFont(Font.font("comicsans", FontWeight.BOLD, FontPosture.REGULAR, 80));
 		
 		Button startButton = new Button("Start Game");
 		startButton.setOnAction(e -> {
@@ -89,7 +88,9 @@ public class MainScene extends Application{
 		primaryStage.show();
 
 	}
+	
 	private void update(GraphicsContext context) {
+		
 		context.clearRect(0, 0, 1440, 900);
 		
 		if (!(canvas == null)) {
@@ -97,12 +98,15 @@ public class MainScene extends Application{
 			for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
 				
 				for (int i = 0; i < 8; i++ ) {
+
+					list.get(i).drawTower(context);
 					
-					if (!(list.get(i) == null)) {
-						list.get(i).drawYourself(context);
-					}
-				}		
-			}	
+					for (int y = 0; y < list.get(i).getBullets().size(); y++) {
+						
+						list.get(i).getBullets().get(y).drawYourself(context);
+					}					
+				}			
+			}			
 		}
 	}
 }
