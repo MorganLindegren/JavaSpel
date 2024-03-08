@@ -1,6 +1,7 @@
 package grafikPaket;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -15,17 +16,16 @@ import javafx.util.Duration;
 
 public class TowerSprite extends Shape {
 	
-	private double x, y;
 	private ArrayList<ProjectileSprite> bullets = new ArrayList<>();
 	private Boolean occupiedSpace = false;
-	private Timeline loop;
+	private GraphicsContext context;
+	Timeline loop = new Timeline();
 
-	public TowerSprite(int x, int y, Color myColor) {
+	public TowerSprite(int x, int y, Color myColor, GraphicsContext context) {
 		super(x, y, myColor);
-		
-		loop = new Timeline();
+		this.context = context;
+	
 		loop.setCycleCount(Animation.INDEFINITE);
-		loop.play();
 	}
 	
 	public void drawYourself(GraphicsContext context, double xsize, double ysize) {
@@ -49,31 +49,29 @@ public class TowerSprite extends Shape {
 		if (occupiedSpace) {
 			context.setFill(new Color(0, 0, 0, 0.5));
 			context.fillRect(getX() + 60, getY() + 60, 60, 60);
-			update(context);
 		}
 		
 	}
 	
 	public void addTowerModel(GraphicsContext context) {
 		
-		occupiedSpace = true;
+		if (!occupiedSpace) {
+			shootLoop();
+			occupiedSpace = true;
+		}
 		context.setFill(new Color(0, 0, 0, 0.5));
-		context.fillRect(getX()+ 60, getY() + 60, 60, 60);
+		context.fillRect(getX() + 60, getY() + 60, 60, 60);
 			
 	}
 	
-	public void shoot(GraphicsContext context) {
+	public void shoot() {
 		int x = getX() + 75;
 		int y = getY() + 75;
 		
-		ProjectileSprite bullet = new ProjectileSprite(30, 30, Color.WHITE, this);
-		this.bullets.add(bullet);
-		bullet.setPos(x, y);
-		bullet.drawYourself(context);	
-		
-		if (bullet.getHitbox() == 1260) {
-			collision();
-		}
+		ProjectileSprite newProjectile = new ProjectileSprite(30, 30, Color.WHITE, this);
+		this.bullets.add(newProjectile);
+		newProjectile.setPos(x, y);
+		newProjectile.drawYourself(context);
 	}
 	
 	public ArrayList<ProjectileSprite> getBullets(){
@@ -84,11 +82,33 @@ public class TowerSprite extends Shape {
 		bullets.remove(0);
 	}
 	
-	public void update(GraphicsContext context) {
+	public void shootLoop() {
 		
-		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/30), event -> update(context)));
-		shoot(context);
+		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/5), event -> shootLoop()));
+		loop.play();
 		
+		shoot();
+		System.out.println(bullets.size());
+	}	
+	
+	public void update() {
+		
+		for (ProjectileSprite projectile : bullets) {
+			projectile.drawYourself(context);
+		}
+		
+//		Iterator<ProjectileSprite> iterator = bullets.iterator();
+//		
+//		while (iterator.hasNext()) {
+//			
+//			for (ProjectileSprite projectile : bullets) {
+//				
+//				if (projectile.getHitbox() > 1280) {
+//					
+//					iterator.remove();
+//					break;
+//				}		
+//			}
+//		}
 	}
-
 }

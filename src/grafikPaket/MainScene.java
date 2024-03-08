@@ -53,10 +53,6 @@ public class MainScene extends Application{
 		Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
 		loop.setCycleCount(Animation.INDEFINITE);
 		loop.play();
-		
-		Timeline projLoop = new Timeline(new KeyFrame(Duration.millis(1000.0/10), event -> updateProjectiles(context)));
-		projLoop.setCycleCount(Animation.INDEFINITE);
-		projLoop.play();
 
 		pane.getChildren().addAll(iv, canvas);	
 		Scene primaryScene = new Scene(pane, 1439, 899);
@@ -103,24 +99,8 @@ public class MainScene extends Application{
 				for (int i = 0; i < 8; i++ ) {
 
 					list.get(i).drawTower(context);
-				}					
-			}			
-		}
-	}
-	
-	public void updateProjectiles(GraphicsContext context) {
-		
-		if (!(canvas == null)) {
-			
-			for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
-				
-				for (int i = 0; i < 8; i++ ) {
-
-					for (int y = 0; y < list.get(i).getBullets().size(); y++) {
-						
-						list.get(i).shoot(context);
-					}
-				}					
+					list.get(i).update();
+				}
 			}			
 		}
 	}

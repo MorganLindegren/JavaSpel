@@ -31,7 +31,7 @@ public class Interface extends Canvas{
 			
 			for (int i = 0; i < 8; i++) {
 				
-				TowerSprite rect = new TowerSprite(xmulti, ymulti, new Color(0, 0, 0, 0.0));
+				TowerSprite rect = new TowerSprite(xmulti, ymulti, new Color(0, 0, 0, 0.0), context);
 				gridModel.addGridRect(rect, row);
 				
 				xmulti += 180;
