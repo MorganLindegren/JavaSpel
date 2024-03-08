@@ -97,18 +97,15 @@ public class TowerSprite extends Shape {
 			projectile.drawYourself(context);
 		}
 		
-//		Iterator<ProjectileSprite> iterator = bullets.iterator();
-//		
-//		while (iterator.hasNext()) {
-//			
-//			for (ProjectileSprite projectile : bullets) {
-//				
-//				if (projectile.getHitbox() > 1280) {
-//					
-//					iterator.remove();
-//					break;
-//				}		
-//			}
-//		}
+		Iterator<ProjectileSprite> iterator = bullets.iterator();
+		
+		while (iterator.hasNext()) {
+			
+			ProjectileSprite projectile = iterator.next();
+			
+			if (projectile.getHitbox() > 1280) {
+				iterator.remove();
+			}
+		}
 	}
 }
