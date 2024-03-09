@@ -22,7 +22,7 @@ public class Enemy extends Shape {
 	
 	public void drawYourself(GraphicsContext context) {
 		context.setFill(Color.RED);
-		context.fillOval(hitbox.x, hitbox.y, 30, 30);
+		context.fillRect(hitbox.x, hitbox.y, 60, 100);
 	}
 	
 	public Rectangle2D.Float getHitbox() {
@@ -34,7 +34,7 @@ public class Enemy extends Shape {
 		this.hitbox.x -= 1*getSpeed();
 		
 		context.setFill(Color.RED);
-		context.fillOval(hitbox.x, hitbox.y, 30, 30);
+		context.fillRect(hitbox.x, hitbox.y-30, 60, 100);
 		
 	}
 	

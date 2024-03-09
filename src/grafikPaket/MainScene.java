@@ -2,6 +2,7 @@ package grafikPaket;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -38,8 +39,9 @@ public class MainScene extends Application{
 		final double nanoPerUpdate = 10000000000.0 / targetFps;
 		
 		StackPane pane = new StackPane();
-//		HBox layout = new HBox();
+		HBox layout = new HBox();
 		GraphicsContext context = canvas.getGraphicsContext2D();
+		Shop shop = new Shop(900, canvas.getIFmodel());
 		
 		canvas.drawGrid();
 		
@@ -49,9 +51,10 @@ public class MainScene extends Application{
 		Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
 		loop.setCycleCount(Animation.INDEFINITE);
 		loop.play();
-
+			
+		layout.getChildren().addAll(shop, pane);
 		pane.getChildren().addAll(iv, canvas);	
-		Scene primaryScene = new Scene(pane, 1439, 899);
+		Scene primaryScene = new Scene(layout, 1439, 899);
 		
 		//----------Main menu---------
 		Text gameName = new Text();
@@ -78,7 +81,7 @@ public class MainScene extends Application{
 		menuRoot.getChildren().addAll(textBox, menuBox);
 		Scene MenuScene = new Scene(menuRoot, 1440, 900);
 		
-		primaryStage.setResizable(false);
+//		primaryStage.setResizable(false);
 		primaryStage.setScene(MenuScene);
 		primaryStage.show();
 

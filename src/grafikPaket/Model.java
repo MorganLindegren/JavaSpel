@@ -9,8 +9,10 @@ public class Model {
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
+	private String currentTower = "base";
 	
 	public Model() {
+		
 		for (int i = 0; i < 5; i++) {
 			ArrayList<Tower> temp = new ArrayList<Tower>(8);
 			gridPos.add(temp);
@@ -23,6 +25,14 @@ public class Model {
 	
 	public ArrayList<Tower> getTowers(){
 		return towers;
+	}
+	
+	public void setTower(String tower) {
+		currentTower = tower;
+	}
+	
+	public String getTower() {
+		return currentTower;
 	}
 
 	public void addGridRect(Tower rect, int row) {

@@ -14,6 +14,7 @@ public class Tower extends Shape {
 	private ArrayList<Projectile> bullets = new ArrayList<>();
 	private Boolean occupiedSpace = false;
 	private GraphicsContext context;
+	private SlowTower slowtower;
 	Timeline loop = new Timeline();
 
 	public Tower(int x, int y, Color myColor, GraphicsContext context) {
@@ -60,6 +61,10 @@ public class Tower extends Shape {
 			
 	}
 	
+	public void addSlowTowerModel(GraphicsContext context, Model model) {
+		slowtower.addTowerModel(context, model);
+	}
+	
 	public void shoot() {
 		int x = getX() + 75;
 		int y = getY() + 75;
@@ -99,6 +104,9 @@ public class Tower extends Shape {
 			Projectile projectile = iterator.next();
 			
 			if (projectile.getHitboxPos() > 1280) {
+				iterator.remove();
+			}
+			if (projectile.checkHit()) {
 				iterator.remove();
 			}
 		}

@@ -119,8 +119,11 @@ public class Interface extends Canvas{
 				y = 4;
 			}
 			
-			gridModel.getGridRect(y, x).addTowerModel(context, gridModel);
-			
+			if (gridModel.getTower().equals("base")) {
+				gridModel.getGridRect(y, x).addTowerModel(context, gridModel);
+			} else if (gridModel.getTower().equals("slow")) {
+				gridModel.getGridRect(y, x).addSlowTowerModel(context, gridModel);
+			}
 			if (!gameStart) {
 				createEnemyWaves();
 				startSpawn();

@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 public class Projectile extends Shape {
 	
 	private Rectangle2D.Float hitbox;
+	private Boolean hit = false;
 	
 	public Projectile( int x, int y, Color myColor) {
 		super(x, y, myColor);
@@ -44,12 +45,21 @@ public class Projectile extends Shape {
 	
 	}
 	
+	public void removeYourself(GraphicsContext context) {
+		context.clearRect(hitbox.x, hitbox.y, 30, 30);
+	}
+	
+	public Boolean checkHit() {
+		return hit;
+	}
+	
 	public void checkCollision(Enemy enemy) {
 		if (hitbox.intersects(enemy.getHitbox())) {
 			
 			if (!enemy.getHit()) {
 			System.out.println("Träff");
 			enemy.Hit();
+			hit = true;
 			}
 		}
 	}
