@@ -4,9 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -16,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -94,14 +90,28 @@ public class MainScene extends Application{
 		
 		if (!(canvas == null)) {
 			
-			for (ArrayList<TowerSprite> list : canvas.getIFmodel().getContents()) {
+			for (ArrayList<Tower> yAxislist : canvas.getIFmodel().getPos()) {
 				
-				for (int i = 0; i < 8; i++ ) {
+				for (int tower = 0; tower < 8; tower++ ) {
 
-					list.get(i).drawTower(context);
-					list.get(i).update();
+					yAxislist.get(tower).drawTower(context);
+					yAxislist.get(tower).update();
 				}
-			}			
+			}
+			
+			for (Tower tower : canvas.getIFmodel().getTowers()) {
+				
+				for (Projectile projectile : tower.getBullets()) {
+					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+						projectile.checkCollision(enemy);
+					}
+				}
+				
+			}
+			
+			for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+				enemy.updateYourself(context);
+			}
 		}
 	}
 }

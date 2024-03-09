@@ -1,33 +1,49 @@
 package grafikPaket;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Model {
 	
-	private ArrayList<ArrayList<TowerSprite>> gridPos = new ArrayList<ArrayList<TowerSprite>>();
+	private ArrayList<ArrayList<Tower>> gridPos = new ArrayList<ArrayList<Tower>>();
+	private ArrayList<Tower> towers = new ArrayList<Tower>();
+	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
+	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
 	
 	public Model() {
 		for (int i = 0; i < 5; i++) {
-			ArrayList<TowerSprite> temp = new ArrayList<TowerSprite>(8);
+			ArrayList<Tower> temp = new ArrayList<Tower>(8);
 			gridPos.add(temp);
 		}
 	}
 	
-	public ArrayList<ArrayList<TowerSprite>> getContents() {
+	public ArrayList<ArrayList<Tower>> getPos() {
 		return gridPos;
 	}
+	
+	public ArrayList<Tower> getTowers(){
+		return towers;
+	}
 
-	public void addGridRect(TowerSprite rect, int row) {
+	public void addGridRect(Tower rect, int row) {
 		
 		gridPos.get(row).add(rect);
 	}
 	
-	public TowerSprite getGridRect(int row, int column) {
+	public Tower getGridRect(int row, int column) {
 		
 		return gridPos.get(row).get(column);
 	}
 	
 	public Boolean checkGridEmpty() {
 		return gridPos.isEmpty();
+	}
+	
+	public Stack<Enemy> getEnemywave1(){
+		return enemyWave1;
+	}
+	
+	public ArrayList<Enemy> getAliveEnemies() {
+		return aliveEnemy;
 	}
 }

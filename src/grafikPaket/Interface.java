@@ -1,14 +1,20 @@
 package grafikPaket;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import java.util.Random;
 
 public class Interface extends Canvas{
 	
 	private Model gridModel = new Model();
-	
+	Timeline spawnTimer = new Timeline();
 	private GraphicsContext context = getGraphicsContext2D();
+	private Boolean gameStart = false;
 
 	public Interface() {
 		setWidth(1440);
@@ -17,8 +23,44 @@ public class Interface extends Canvas{
 		
 	}
 	
-	public void update() {
+	public void createEnemyWaves() {
 		
+		
+		for (int i = 0; i < 20; i++) {
+			Random rand = new Random();
+			int randPos = rand.nextInt(5);
+			
+			if (randPos == 0) {
+				randPos = 75;
+			} else if (randPos == 1) {
+				randPos = 255;
+			} else if (randPos == 2) {
+				randPos = 435;
+			} else if (randPos == 3) {
+				randPos = 615;
+			} else if (randPos == 4) {
+				randPos = 795;
+			}
+			
+			Enemy enemy = new Enemy(1440, randPos, Color.RED);
+			gridModel.getEnemywave1().push(enemy);
+		}
+		
+		System.out.println(gridModel.getEnemywave1().size());
+	}
+	
+	public void startSpawn() {
+		Timeline spawnTimer = new Timeline(new KeyFrame(Duration.millis(1000.0/0.2), event -> spawnEnemy()));
+		spawnTimer.setCycleCount(Animation.INDEFINITE);
+		spawnTimer.play();
+	}
+	
+	public void spawnEnemy() {
+		if (!gridModel.getEnemywave1().isEmpty()) {
+			gridModel.getEnemywave1().peek().drawYourself(context);
+			gridModel.getAliveEnemies().add(gridModel.getEnemywave1().peek());
+			gridModel.getEnemywave1().pop();
+		}
 	}
 	
 	public void drawGrid() {
@@ -31,8 +73,8 @@ public class Interface extends Canvas{
 			
 			for (int i = 0; i < 8; i++) {
 				
-				TowerSprite rect = new TowerSprite(xmulti, ymulti, new Color(0, 0, 0, 0.0), context);
-				gridModel.addGridRect(rect, row);
+				Tower tower = new Tower(xmulti, ymulti, new Color(0, 0, 0, 0.0), context);
+				gridModel.addGridRect(tower, row);
 				
 				xmulti += 180;
 				
@@ -77,8 +119,13 @@ public class Interface extends Canvas{
 				y = 4;
 			}
 			
-			gridModel.getGridRect(y, x).addTowerModel(context);
-//			gridModel.getGridRect(y, x).shoot(context);
+			gridModel.getGridRect(y, x).addTowerModel(context, gridModel);
+			
+			if (!gameStart) {
+				createEnemyWaves();
+				startSpawn();
+				gameStart = true;
+			}
 		});
 		
 	}

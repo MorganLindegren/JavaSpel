@@ -5,19 +5,13 @@ import java.awt.geom.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class ProjectileSprite extends Shape {
+public class Projectile extends Shape {
 	
 	private Rectangle2D.Float hitbox;
-	private boolean active = true;
-	private static final double speed = 3;
-	private double  x,y;
-	private TowerSprite tower;
 	
-	public ProjectileSprite( int x, int y, Color myColor, TowerSprite Tower) {
+	public Projectile( int x, int y, Color myColor) {
 		super(x, y, myColor);
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
-		this.x = Tower.getX();
-		this.y = Tower.getY();
 	}
 	
 	public void updatePos() {
@@ -29,24 +23,34 @@ public class ProjectileSprite extends Shape {
 		hitbox.y = (float) (y);
 	}
 	
-	public float getHitbox(){
+	public float getHitboxPos(){
 		return hitbox.x;
 	}
 	
-	public void setActive(boolean active) {
-		this.active = active;
+	public Rectangle2D.Float getHitbox(){
+		return hitbox;
 	}
 	
 	public void drawYourself(GraphicsContext context) {
-		this.hitbox.x += 5*speed;
+		context.setFill(getColor());
+		context.fillOval(hitbox.x, hitbox.y, 30, 30);
+	}
+	
+	public void updateYourself(GraphicsContext context) {
+		this.hitbox.x += 5*getSpeed();
 		
 		context.setFill(Color.WHITE);
 		context.fillOval(hitbox.x, hitbox.y, 30, 30);
 	
 	}
-
 	
-	public boolean isActive() {
-		return active;
+	public void checkCollision(Enemy enemy) {
+		if (hitbox.intersects(enemy.getHitbox())) {
+			
+			if (!enemy.getHit()) {
+			System.out.println("Träff");
+			enemy.Hit();
+			}
+		}
 	}
 }

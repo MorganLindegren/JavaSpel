@@ -7,6 +7,7 @@ public abstract class Shape {
 
 	private int x, y;
 	private Color myColor;
+	private static final double speed = 3;
 	
 	public Shape(int x, int y, Color myColor){
 		this.x = x;
@@ -38,6 +39,10 @@ public abstract class Shape {
 	
 	public void drawYourself(GraphicsContext context) {
 		
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 }
