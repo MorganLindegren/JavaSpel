@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class Model {
 	
-	private ArrayList<ArrayList<Tower>> gridPos = new ArrayList<ArrayList<Tower>>();
+	private ArrayList<ArrayList<Shape>> gridPos = new ArrayList<ArrayList<Shape>>();
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
@@ -14,12 +14,12 @@ public class Model {
 	public Model() {
 		
 		for (int i = 0; i < 5; i++) {
-			ArrayList<Tower> temp = new ArrayList<Tower>(8);
+			ArrayList<Shape> temp = new ArrayList<Shape>(8);
 			gridPos.add(temp);
 		}
 	}
 	
-	public ArrayList<ArrayList<Tower>> getPos() {
+	public ArrayList<ArrayList<Shape>> getPos() {
 		return gridPos;
 	}
 	
@@ -35,12 +35,12 @@ public class Model {
 		return currentTower;
 	}
 
-	public void addGridRect(Tower tower, int row) {
+	public void addGridRect(Shape shape, int row) {
 		
-		gridPos.get(row).add(tower);
+		gridPos.get(row).add(shape);
 	}
 	
-	public Tower getGridRect(int row, int column) {
+	public Shape getGridRect(int row, int column) {
 		
 		return gridPos.get(row).get(column);
 	}

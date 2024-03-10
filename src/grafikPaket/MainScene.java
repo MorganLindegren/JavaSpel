@@ -93,13 +93,10 @@ public class MainScene extends Application{
 		
 		if (!(canvas == null)) {
 			
-			for (ArrayList<Tower> yAxislist : canvas.getIFmodel().getPos()) {
+			for (Tower tower : canvas.getIFmodel().getTowers()) {
 				
-				for (int tower = 0; tower < 8; tower++ ) {
-
-					yAxislist.get(tower).updateTower(context);
-					yAxislist.get(tower).update();
-				}
+					tower.updateTower(context);
+					tower.update();
 			}
 			
 			for (Tower tower : canvas.getIFmodel().getTowers()) {

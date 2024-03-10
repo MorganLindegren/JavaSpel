@@ -49,8 +49,8 @@ public class SlowTower extends Tower {
 	
 	@Override
 	public void shoot() {
-		float x = getHitbox().x + 75;
-		float y = getHitbox().y + 75;
+		float x = getHitbox().x + 25;
+		float y = getHitbox().y + 15;
 		
 		Projectile newProjectile = new Projectile(30, 30, Color.LIGHTBLUE);
 		this.getProjectiles().add(newProjectile);
@@ -82,6 +82,10 @@ public class SlowTower extends Tower {
 				iterator.remove();
 			}
 		}
+	}
+	
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
 	}
 	
 

@@ -45,4 +45,18 @@ public class Shape {
 		return speed;
 	}
 	
+	public void addTower(Model model, GraphicsContext context) {
+		int x,y;
+		x = this.x;
+		y = this.y;
+		
+		if (model.getTower().equals("base")) {
+			BasicTower basic = new BasicTower(x, y, context);
+			basic.addTowerModel(context, model);
+		} else if (model.getTower().equals("slow")) {
+			SlowTower slow = new SlowTower(x, y, context);
+			slow.addTowerModel(context, model);
+		}
+	}
+	
 }
