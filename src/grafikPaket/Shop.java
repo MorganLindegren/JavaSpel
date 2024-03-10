@@ -17,6 +17,7 @@ public class Shop extends VBox {
 		
 		previousTower = setBase;
 		previousTower.ChangeTower();
+		setBase.setBorder();
 		
 		setBase.ChangeTower();
 		setSlow.ChangeTower();
@@ -28,5 +29,11 @@ public class Shop extends VBox {
 		getChildren().add(setSlow);
 	}
 	
+	public void updatePrevious(TowerButton towerbutton) {
+		previousTower = towerbutton;
+	}
 	
+	public void updateBorder() {
+		previousTower.removeBorder();
+	}
 }

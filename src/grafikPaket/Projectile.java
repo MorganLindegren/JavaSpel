@@ -13,7 +13,6 @@ public class Projectile extends Shape {
 	public Projectile( int x, int y, Color myColor) {
 		super(x, y, myColor);
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
-		
 	}
 	
 	public void updatePos() {

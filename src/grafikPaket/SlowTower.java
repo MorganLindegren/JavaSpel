@@ -23,7 +23,7 @@ public class SlowTower extends Tower {
 	public void drawTower(GraphicsContext context) {
 		
 		context.setFill(myColor);
-		context.fillRect(10, 10, 30, 30);
+		context.fillRect(5, 5, 40, 40);
 
 	}
 	

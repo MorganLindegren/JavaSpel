@@ -108,7 +108,7 @@ public class MainScene extends Application{
 				for (Projectile slowprojectile : slowtower.getProjectiles()) {
 					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
 						slowprojectile.checkCollision(enemy);
-						slowprojectile.slowEnemySpeed(enemy);
+						enemy.slowEnemySpeed(enemy);
 					}
 				}
 			}

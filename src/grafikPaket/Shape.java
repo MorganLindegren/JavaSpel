@@ -51,7 +51,7 @@ public class Shape {
 	}
 	
 	public void slowEnemySpeed(Enemy enemy) {
-		enemySpeed = 1.5;
+		enemy.slowEnemySpeed(enemy);
 	}
 	
 	public void addTower(Model model, GraphicsContext context) {

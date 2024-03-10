@@ -9,6 +9,7 @@ public abstract class Enemy extends Shape {
 	
 	private Rectangle2D.Float hitbox;
 	private Boolean hit = false;
+	private double enemySpeed;
 	
 	public Enemy(int x, int y, Color myColor) {
 		super(x, y, myColor);
@@ -32,6 +33,10 @@ public abstract class Enemy extends Shape {
 		context.setFill(Color.RED);
 		context.fillRect(hitbox.x, hitbox.y-30, 60, 100);
 		
+	}
+	
+	public void slowEnemySpeed(Enemy enemy) {
+		enemySpeed = getEnemySpeed() -2;
 	}
 	
 	public void checkHit(EnemyBasic enemyBasic) {
