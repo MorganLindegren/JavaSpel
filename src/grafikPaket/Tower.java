@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import logikPaket.TowerLogic;
 
 abstract class Tower {
 	
@@ -17,13 +18,11 @@ abstract class Tower {
 	private GraphicsContext context;
 	private Color myColor;
 	private Rectangle2D.Float hitbox = new Rectangle2D.Float();
-	private int x, y;
+	private TowerLogic towerLogic = new TowerLogic(1);
 	Timeline loop = new Timeline();
 
 	public Tower(int x, int y, GraphicsContext context) {
 		this.context = context;
-		this.x = x;
-		this.y = y;
 		
 		hitbox.x = x + 60;
 		hitbox.y = y + 60;
@@ -55,12 +54,9 @@ abstract class Tower {
 		occupiedSpace = bool;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
+	public TowerLogic getTowerLogic() {
+		
+		return towerLogic;
 	}
 	
 	public void drawRect(GraphicsContext context) {
@@ -94,38 +90,16 @@ abstract class Tower {
 	}
 	
 	public void shoot() {
-		Float x = hitbox.x + 75;
-		Float y = hitbox.y + 75;
-		
-		Projectile newProjectile = new Projectile(30, 30, Color.WHITE);
-		this.bullets.add(newProjectile);
-		newProjectile.setPos(x, y);
-		newProjectile.drawYourself(context);
 	}
 	
 	public void shootLoop() {
-		
-		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/1), event -> shootLoop()));
-		loop.play();
-		
-		shoot();
 	}	
+	
+	public void checkCollision(Enemy enemy) {
+		
+	}
 	
 	public void update() {
 		
-		for (Projectile projectile : bullets) {
-			projectile.updateYourself(context);
-		}
-		
-		Iterator<Projectile> iterator = bullets.iterator();
-		
-		while (iterator.hasNext()) {
-			
-			Projectile projectile = iterator.next();
-			
-			if (projectile.getHitboxPos() > 1440 || projectile.checkHit()) {
-				iterator.remove();
-			}
-		}
 	}
 }

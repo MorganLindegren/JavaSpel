@@ -3,10 +3,15 @@ package logikPaket;
 public class ProjectileLogic {
 
 	private int damage;
-	private double speed;
-	public ProjectileLogic(int damage, double moveSpeed) {
+	public ProjectileLogic(int damage) {
 		this.damage = damage;
-		this.speed = moveSpeed;
 	}
-
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public void setDamage(int dmg) {
+		damage = dmg;
+	}
 }

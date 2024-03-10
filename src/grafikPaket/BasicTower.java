@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import logikPaket.TowerLogic;
 
 public class BasicTower extends Tower {
 	
@@ -26,18 +27,6 @@ public class BasicTower extends Tower {
 
 	}
 	
-	public void addTowerModel(GraphicsContext context, Model model) {
-		
-		if (!getOccupiedSpace()) {
-			shootLoop();
-			setOccupiedSpace(true);
-		}
-		context.setFill(myColor);
-		context.fillRect(getHitbox().x, getHitbox().y, 60, 60);
-		model.getTowers().add(this);
-			
-	}
-	
 	public void updateTower(GraphicsContext context) {
 		
 		if (getOccupiedSpace()) {
@@ -52,7 +41,12 @@ public class BasicTower extends Tower {
 		float x = getHitbox().x + 25;
 		float y = getHitbox().y + 15;
 		
-		Projectile newProjectile = new Projectile(30, 30, Color.WHITE);
+		BasicProjectile newProjectile = new BasicProjectile(30, 30, Color.LIGHTGREEN);
+		
+		if (getTowerLogic().checkDmgUpgrade()) {
+			newProjectile.getProjectileLogic().setDamage(2);;
+		}
+		
 		this.getProjectiles().add(newProjectile);
 		newProjectile.setPos(x, y);
 		newProjectile.drawYourself(getContext());
@@ -64,6 +58,15 @@ public class BasicTower extends Tower {
 		loop.play();
 		
 		shoot();
+	}
+	
+	public void checkCollision(Enemy enemy) {
+		
+		if (getHitbox().intersects(enemy.getHitbox())) {
+			
+			System.out.println("Träff");
+			getTowerLogic().towerHit();
+		}
 	}
 	
 	public void update() {
@@ -78,7 +81,7 @@ public class BasicTower extends Tower {
 			
 			Projectile projectile = iterator.next();
 			
-			if (projectile.getHitboxPos() > 1440 || projectile.checkHit()) {
+			if (projectile.getHitboxPos() > 1440 || projectile.getHit()) {
 				iterator.remove();
 			}
 		}
@@ -88,5 +91,9 @@ public class BasicTower extends Tower {
 		return projectiles;
 	}
 	
+	public void upgradeTower() {
+		
+		getTowerLogic().dmgUpgraded();
+	}
 
 }

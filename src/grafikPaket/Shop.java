@@ -1,9 +1,11 @@
 package grafikPaket;
 
 import javafx.scene.layout.VBox;
+import logikPaket.ShopLogic;
 
 public class Shop extends VBox {
 	
+	private ShopLogic shopLogic = new ShopLogic(6);
 	private TowerButton previousTower;
 
 	public Shop(double Height, Model myModel) {
@@ -35,5 +37,10 @@ public class Shop extends VBox {
 	
 	public void updateBorder() {
 		previousTower.removeBorder();
+	}
+	
+	public ShopLogic getShopLogic() {
+		
+		return shopLogic;
 	}
 }

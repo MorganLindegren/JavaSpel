@@ -4,15 +4,18 @@ import java.awt.geom.Rectangle2D;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import logikPaket.ProjectileLogic;
 
-public class Projectile extends Shape {
+public class Projectile {
 	
 	private Rectangle2D.Float hitbox;
 	private Boolean hit = false;
+	private Color myColor;
 	
 	public Projectile( int x, int y, Color myColor) {
-		super(x, y, myColor);
+
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
+		this.myColor = myColor;
 	}
 	
 	public void updatePos() {
@@ -33,14 +36,14 @@ public class Projectile extends Shape {
 	}
 	
 	public void drawYourself(GraphicsContext context) {
-		context.setFill(getColor());
+		context.setFill(myColor);
 		context.fillOval(hitbox.x, hitbox.y, 30, 30);
 	}
 	
 	public void updateYourself(GraphicsContext context) {
-		this.hitbox.x += 5*getSpeed();
+		this.hitbox.x += 5*3;
 		
-		context.setFill(getColor());
+		context.setFill(myColor);
 		context.fillOval(hitbox.x, hitbox.y, 30, 30);
 	
 	}
@@ -49,15 +52,15 @@ public class Projectile extends Shape {
 		context.clearRect(hitbox.x, hitbox.y, 30, 30);
 	}
 	
-	public Boolean checkHit() {
+	public Boolean getHit() {
 		return hit;
 	}
 	
+	public void setHit(Boolean bool) {
+		hit = bool;
+	}
+	
 	public void checkCollision(Enemy enemy) {
-		if (hitbox.intersects(enemy.getHitbox())) {
-			
-			hit = true;
-			System.out.println("Träff");
-		}
+		
 	}
 }

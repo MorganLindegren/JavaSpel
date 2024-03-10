@@ -4,15 +4,14 @@ import java.awt.geom.Rectangle2D;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import logikPaket.EnemyLogic;
 
-public abstract class Enemy extends Shape {
+public abstract class Enemy {
 	
 	private Rectangle2D.Float hitbox;
-	private Boolean hit = false;
-	private double enemySpeed;
+	private EnemyLogic enemyLogic = new EnemyLogic(3, 3);
 	
 	public Enemy(int x, int y, Color myColor) {
-		super(x, y, myColor);
 
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
 	}
@@ -28,19 +27,19 @@ public abstract class Enemy extends Shape {
 	
 	public void updateYourself(GraphicsContext context) {
 
-		this.hitbox.x -= 1*getEnemySpeed();
+		this.hitbox.x -= enemyLogic.getSpeed();
 		
 		context.setFill(Color.RED);
 		context.fillRect(hitbox.x, hitbox.y-30, 60, 100);
 		
 	}
 	
-	public void slowEnemySpeed(Enemy enemy) {
-		enemySpeed = getEnemySpeed() -2;
-	}
-	
 	public void checkHit(EnemyBasic enemyBasic) {
 		enemyBasic.checkHit(enemyBasic);
+	}
+	
+	public EnemyLogic getEnemyLogic() {
+		return enemyLogic;
 	}
 
 }

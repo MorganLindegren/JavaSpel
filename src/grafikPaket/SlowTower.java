@@ -13,11 +13,9 @@ public class SlowTower extends Tower {
 	
 	private static Color myColor = Color.DARKBLUE;
 	private ArrayList<Projectile> projectiles = new ArrayList<>();
-	private Shape shape;
 
-	public SlowTower(int x, int y, GraphicsContext context, Shape shape) {
+	public SlowTower(int x, int y, GraphicsContext context) {
 		super(x, y, context);
-		this.shape = shape;
 	}
 	
 	public void drawTower(GraphicsContext context) {
@@ -25,18 +23,6 @@ public class SlowTower extends Tower {
 		context.setFill(myColor);
 		context.fillRect(5, 5, 40, 40);
 
-	}
-	
-	public void addTowerModel(GraphicsContext context, Model model) {
-		
-		if (!getOccupiedSpace()) {
-			shootLoop();
-			setOccupiedSpace(true);
-		}
-		context.setFill(myColor);
-		context.fillRect(getHitbox().x, getHitbox().y, 60, 60);
-		model.getTowers().add(this);
-			
 	}
 	
 	public void updateTower(GraphicsContext context) {
@@ -53,7 +39,7 @@ public class SlowTower extends Tower {
 		float x = getHitbox().x + 25;
 		float y = getHitbox().y + 15;
 		
-		Projectile newProjectile = new Projectile(30, 30, Color.LIGHTBLUE);
+		Projectile newProjectile = new SlowProjectile(30, 30, Color.LIGHTBLUE);
 		this.getProjectiles().add(newProjectile);
 		newProjectile.setPos(x, y);
 		newProjectile.drawYourself(getContext());
@@ -65,6 +51,15 @@ public class SlowTower extends Tower {
 		loop.play();
 		
 		shoot();
+	}
+	
+	public void checkCollision(Enemy enemy) {
+		
+		if (getHitbox().intersects(enemy.getHitbox())) {
+			
+			System.out.println("Träff");
+			getTowerLogic().towerHit();
+		}
 	}
 	
 	public void update() {
@@ -80,7 +75,7 @@ public class SlowTower extends Tower {
 			Projectile projectile = iterator.next();
 			
 			
-			if (projectile.getHitboxPos() > 1440 || projectile.checkHit()) {
+			if (projectile.getHitboxPos() > 1440 || projectile.getHit()) {
 				iterator.remove();
 			}
 		}
@@ -90,5 +85,9 @@ public class SlowTower extends Tower {
 		return projectiles;
 	}
 	
+	public void upgradeTower() {
+		
+		getTowerLogic().slowUpgraded();
+	}
 
 }

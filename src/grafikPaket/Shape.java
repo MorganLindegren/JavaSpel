@@ -7,8 +7,7 @@ public class Shape {
 
 	private int x, y;
 	private Color myColor;
-	private double speed = 3;
-	private double enemySpeed = 3;
+	private Tower tower;
 	
 	public Shape(int x, int y, Color myColor){
 		this.x = x;
@@ -42,18 +41,6 @@ public class Shape {
 		
 	}
 	
-	public double getSpeed() {
-		return speed;
-	}
-	
-	public double getEnemySpeed() {
-		return enemySpeed;
-	}
-	
-	public void slowEnemySpeed(Enemy enemy) {
-		enemy.slowEnemySpeed(enemy);
-	}
-	
 	public void addTower(Model model, GraphicsContext context) {
 		int x,y;
 		x = this.x;
@@ -62,10 +49,16 @@ public class Shape {
 		if (model.getTower().equals("base")) {
 			BasicTower basic = new BasicTower(x, y, context);
 			basic.addTowerModel(context, model);
+			tower = basic;
 		} else if (model.getTower().equals("slow")) {
-			SlowTower slow = new SlowTower(x, y, context, this);
+			SlowTower slow = new SlowTower(x, y, context);
 			slow.addTowerModel(context, model);
+			tower = slow;
 		}
+	}
+	
+	public Tower getShapeTower() {
+		return tower;
 	}
 	
 }

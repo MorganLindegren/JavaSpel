@@ -20,12 +20,14 @@ import javafx.util.Duration;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.animation.*;
 
 public class MainScene extends Application{
 	
 	private Interface canvas = new Interface();
+	private Timeline loop = new Timeline();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -46,7 +48,7 @@ public class MainScene extends Application{
 		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
 		ImageView iv = new ImageView(background);
 		
-		Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
+		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
 		loop.setCycleCount(Animation.INDEFINITE);
 		loop.play();
 			
@@ -95,30 +97,71 @@ public class MainScene extends Application{
 				
 					tower.updateTower(context);
 					tower.update();
+					
+					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+						
+
+						tower.checkCollision(enemy);
+						
+						Iterator<Tower> iterator = canvas.getIFmodel().getTowers().iterator();
+						
+						while (iterator.hasNext()) {
+							
+							tower = iterator.next();
+							
+							if (tower.getTowerLogic().towerDead()) {
+								
+								iterator.remove();					
+							
+							}						
+						}		
+					}
 			}
 			
-			for (Tower tower : canvas.getIFmodel().getTowers()) {			
-				for (Projectile projectile : tower.getProjectiles()) {
+			for (Tower towertemp : canvas.getIFmodel().getTowers()) {			
+				for (Projectile projectile : towertemp.getProjectiles()) {
 					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+						
 						projectile.checkCollision(enemy);
-					}
-				}			
-			}
-			for (SlowTower slowtower : canvas.getIFmodel().getSlowTowers()) {
-				for (Projectile slowprojectile : slowtower.getProjectiles()) {
-					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
-						slowprojectile.checkCollision(enemy);
-						enemy.slowEnemySpeed(enemy);
-					}
+						
+						Iterator<Tower> iterator = canvas.getIFmodel().getTowers().iterator();
+						
+						while (iterator.hasNext()) {
+							
+							towertemp = iterator.next();
+							
+							if (towertemp.getTowerLogic().towerDead()) {
+								
+								iterator.remove();					
+							}			
+						}	
+					}					
 				}
 			}
 			
 			for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+				
 				enemy.updateYourself(context);
+
+				Iterator<Enemy> iterator = canvas.getIFmodel().getAliveEnemies().iterator();
+				
+				while (iterator.hasNext()) {
+					
+					enemy = iterator.next();
+					
+					if (enemy.getEnemyLogic().dead()) {
+						
+						iterator.remove();
+					} else if (enemy.getHitbox().x == 0) {
+						loop.setCycleCount(0);
+						loop.stop();
+						
+						canvas.gameOver();
+					}
+				}
 			}
 		}
 	}
-
 }
 	
 

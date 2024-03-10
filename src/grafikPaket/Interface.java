@@ -3,9 +3,13 @@ package grafikPaket;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.util.Random;
 
@@ -98,6 +102,7 @@ public class Interface extends Canvas{
 		}
 		
 		setOnMouseClicked(event -> {
+			
 			int x = (int) event.getX();
 			int y = (int) event.getY();
 			
@@ -142,6 +147,11 @@ public class Interface extends Canvas{
 				startSpawn();
 				gameStart = true;
 			}
+			
+			if (gridModel.getGridRect(y, x).getShapeTower().getOccupiedSpace()) {
+				Button button = new Button("Upgrade Effect");
+				context.add(button);
+			}
 		});
 		
 	}
@@ -152,5 +162,12 @@ public class Interface extends Canvas{
 	
 	public Boolean checkIfmodelEmpty() {
 		return gridModel.checkGridEmpty();
+	}
+	
+	public void gameOver() {
+		
+		context.setFill(Color.RED);
+		context.setTextAlign(TextAlignment.CENTER);
+		context.fillText("GAME OVER", getWidth() / 2 - 50, getHeight() / 2);
 	}
 }
