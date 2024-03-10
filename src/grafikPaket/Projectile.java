@@ -13,6 +13,7 @@ public class Projectile extends Shape {
 	public Projectile( int x, int y, Color myColor) {
 		super(x, y, myColor);
 		hitbox = new Rectangle2D.Float(x, y, 30, 30);
+		
 	}
 	
 	public void updatePos() {
@@ -56,11 +57,8 @@ public class Projectile extends Shape {
 	public void checkCollision(Enemy enemy) {
 		if (hitbox.intersects(enemy.getHitbox())) {
 			
-			if (!enemy.getHit()) {
-			System.out.println("Träff");
-			enemy.Hit();
 			hit = true;
-			}
+			System.out.println("Träff");
 		}
 	}
 }

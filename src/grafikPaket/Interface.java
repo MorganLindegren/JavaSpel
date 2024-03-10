@@ -31,19 +31,32 @@ public class Interface extends Canvas{
 			int randPos = rand.nextInt(5);
 			
 			if (randPos == 0) {
-				randPos = 75;
+				 
+				randPos = 70;
 			} else if (randPos == 1) {
-				randPos = 255;
+		
+				randPos = 250;
 			} else if (randPos == 2) {
-				randPos = 435;
+		
+				randPos = 430;
 			} else if (randPos == 3) {
-				randPos = 615;
-			} else if (randPos == 4) {
-				randPos = 795;
+		
+				randPos = 610;
+			} else if (randPos == 4) {			
+		 	
+				randPos = 790;
 			}
 			
-			Enemy enemy = new Enemy(1440, randPos, Color.RED);
-			gridModel.getEnemywave1().push(enemy);
+			if (!(i % 5 == 0)) {		
+					
+				Enemy enemy = new EnemyBasic(1440, randPos, Color.RED);	
+				gridModel.getEnemywave1().push(enemy);
+		
+			} else {
+				
+				Enemy enemy = new EnemySpecial(1440, randPos, Color.PURPLE);
+				gridModel.getEnemywave1().push(enemy);
+			}
 		}
 		
 		System.out.println(gridModel.getEnemywave1().size());
