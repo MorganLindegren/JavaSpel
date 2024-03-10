@@ -52,7 +52,7 @@ public class BasicTower extends Tower {
 		float x = getHitbox().x + 25;
 		float y = getHitbox().y + 15;
 		
-		Projectile newProjectile = new Projectile(30, 30, Color.LIGHTBLUE);
+		Projectile newProjectile = new Projectile(30, 30, Color.WHITE);
 		this.getProjectiles().add(newProjectile);
 		newProjectile.setPos(x, y);
 		newProjectile.drawYourself(getContext());

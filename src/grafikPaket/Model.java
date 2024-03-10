@@ -7,6 +7,7 @@ public class Model {
 	
 	private ArrayList<ArrayList<Shape>> gridPos = new ArrayList<ArrayList<Shape>>();
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
+	private ArrayList<SlowTower> slowTowers = new ArrayList<SlowTower>();
 	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
 	private String currentTower = "base";
@@ -25,6 +26,10 @@ public class Model {
 	
 	public ArrayList<Tower> getTowers(){
 		return towers;
+	}
+	
+	public ArrayList<SlowTower> getSlowTowers(){
+		return slowTowers;
 	}
 	
 	public void setTower(String tower) {

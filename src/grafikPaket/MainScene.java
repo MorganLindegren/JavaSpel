@@ -35,8 +35,6 @@ public class MainScene extends Application{
 		
 		//----------Game Scene--------
 		primaryStage.setTitle("Plant on Zombie Warfare");
-		final double targetFps = 60.0;
-		final double nanoPerUpdate = 10000000000.0 / targetFps;
 		
 		StackPane pane = new StackPane();
 		HBox layout = new HBox();
@@ -81,7 +79,7 @@ public class MainScene extends Application{
 		menuRoot.getChildren().addAll(textBox, menuBox);
 		Scene MenuScene = new Scene(menuRoot, 1440, 900);
 		
-//		primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		primaryStage.setScene(MenuScene);
 		primaryStage.show();
 
@@ -99,14 +97,20 @@ public class MainScene extends Application{
 					tower.update();
 			}
 			
-			for (Tower tower : canvas.getIFmodel().getTowers()) {
-				
+			for (Tower tower : canvas.getIFmodel().getTowers()) {			
 				for (Projectile projectile : tower.getProjectiles()) {
 					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
 						projectile.checkCollision(enemy);
 					}
+				}			
+			}
+			for (SlowTower slowtower : canvas.getIFmodel().getSlowTowers()) {
+				for (Projectile slowprojectile : slowtower.getProjectiles()) {
+					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
+						slowprojectile.checkCollision(enemy);
+						slowprojectile.slowEnemySpeed(enemy);
+					}
 				}
-				
 			}
 			
 			for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
@@ -114,4 +118,8 @@ public class MainScene extends Application{
 			}
 		}
 	}
+
 }
+	
+
+

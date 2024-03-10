@@ -41,7 +41,7 @@ public class Projectile extends Shape {
 	public void updateYourself(GraphicsContext context) {
 		this.hitbox.x += 5*getSpeed();
 		
-		context.setFill(Color.WHITE);
+		context.setFill(getColor());
 		context.fillOval(hitbox.x, hitbox.y, 30, 30);
 	
 	}

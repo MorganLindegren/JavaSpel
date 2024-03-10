@@ -13,10 +13,11 @@ public class SlowTower extends Tower {
 	
 	private static Color myColor = Color.DARKBLUE;
 	private ArrayList<Projectile> projectiles = new ArrayList<>();
+	private Shape shape;
 
-	public SlowTower(int x, int y, GraphicsContext context) {
-		
+	public SlowTower(int x, int y, GraphicsContext context, Shape shape) {
 		super(x, y, context);
+		this.shape = shape;
 	}
 	
 	public void drawTower(GraphicsContext context) {
@@ -77,6 +78,7 @@ public class SlowTower extends Tower {
 		while (iterator.hasNext()) {
 			
 			Projectile projectile = iterator.next();
+			
 			
 			if (projectile.getHitboxPos() > 1440 || projectile.checkHit()) {
 				iterator.remove();

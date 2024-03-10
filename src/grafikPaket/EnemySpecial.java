@@ -30,7 +30,7 @@ public class EnemySpecial extends Enemy {
 	
 	public void updateYourself(GraphicsContext context) {
 
-		this.getHitbox().x -= 1*getSpeed();
+		this.getHitbox().x -= 1*getEnemySpeed();
 		
 		context.setFill(getColor());
 		context.fillRect(getHitbox().x, getHitbox().y - 30, 60, 100);

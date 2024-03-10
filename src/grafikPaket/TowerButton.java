@@ -9,6 +9,7 @@ public class TowerButton extends MyButton {
 	private GraphicsContext context = getGraphicsContext2D();
 	private String tower;
 	private Shop shop;
+	private Shape shape;
 	
 	public TowerButton(Model myModel, Shop shop, String tower) {
 		this.myModel = myModel;
@@ -29,7 +30,7 @@ public class TowerButton extends MyButton {
 			BasicTower basic = new BasicTower(30, 30, context);
 			basic.drawTower(context);
 		} else if (tower.equals("slow")) {
-			SlowTower slow = new SlowTower(30, 30, context);
+			SlowTower slow = new SlowTower(30, 30, context, shape);
 			slow.drawTower(context);
 		}
 	}
