@@ -13,6 +13,7 @@ public class TowerButton extends MyButton {
 	public TowerButton(Model myModel, Shop shop, String tower) {
 		this.myModel = myModel;
 		this.tower = tower;
+		this.shop = shop;
 
 	}
 	
@@ -25,11 +26,15 @@ public class TowerButton extends MyButton {
 	public void AddTower() {
 		
 		if (tower.equals("base")) {
-			Tower baseTower = new Tower(11, 12, Color.BLACK, context);
-			baseTower.drawYourself(context, 30, 30);
+			BasicTower basic = new BasicTower(30, 30, context);
+			basic.drawTower(context);
 		} else if (tower.equals("slow")) {
-			SlowTower slow = new SlowTower(25, 25, Color.BLACK, context);
-			slow.drawYourself(context);
+			SlowTower slow = new SlowTower(30, 30, context);
+			slow.drawTower(context);
 		}
-	}	
+	}
+	
+	public Shop getShop() {
+		return shop;
+	}
 }

@@ -9,12 +9,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class SlowTower extends Tower {
+public class BasicTower extends Tower {
 	
-	private static Color myColor = Color.DARKBLUE;
+	private static Color myColor = Color.GREENYELLOW;
 	private ArrayList<Projectile> projectiles = new ArrayList<>();
-
-	public SlowTower(int x, int y, GraphicsContext context) {
+	
+	public BasicTower(int x, int y, GraphicsContext context) {
 		
 		super(x, y, context);
 	}
@@ -22,7 +22,7 @@ public class SlowTower extends Tower {
 	public void drawTower(GraphicsContext context) {
 		
 		context.setFill(myColor);
-		context.fillRect(10, 10, 30, 30);
+		context.fillRect(10, 10 , 30, 30);
 
 	}
 	
@@ -49,8 +49,8 @@ public class SlowTower extends Tower {
 	
 	@Override
 	public void shoot() {
-		float x = getHitbox().x + 75;
-		float y = getHitbox().y + 75;
+		float x = getHitbox().x + 25;
+		float y = getHitbox().y + 15;
 		
 		Projectile newProjectile = new Projectile(30, 30, Color.LIGHTBLUE);
 		this.getProjectiles().add(newProjectile);
@@ -82,6 +82,10 @@ public class SlowTower extends Tower {
 				iterator.remove();
 			}
 		}
+	}
+	
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
 	}
 	
 

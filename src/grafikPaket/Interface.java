@@ -73,8 +73,8 @@ public class Interface extends Canvas{
 			
 			for (int i = 0; i < 8; i++) {
 				
-				Tower tower = new Tower(xmulti, ymulti, new Color(0, 0, 0, 0.0), context);
-				gridModel.addGridRect(tower, row);
+			    Shape shape = new Shape(xmulti, ymulti, shape.getColor());
+				gridModel.addGridRect(shape, row);
 				
 				xmulti += 180;
 				
@@ -122,7 +122,7 @@ public class Interface extends Canvas{
 			if (gridModel.getTower().equals("base")) {
 				gridModel.getGridRect(y, x).addTowerModel(context, gridModel);
 			} else if (gridModel.getTower().equals("slow")) {
-				gridModel.getGridRect(y, x).addSlowTowerModel(context, gridModel);
+				gridModel.getGridRect(y, x).addTowerModel(context, gridModel);
 			}
 			if (!gameStart) {
 				createEnemyWaves();

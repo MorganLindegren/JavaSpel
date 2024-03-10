@@ -1,5 +1,6 @@
 package grafikPaket;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.Animation;
@@ -9,42 +10,73 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class Tower extends Shape {
+abstract class Tower {
 	
 	private ArrayList<Projectile> bullets = new ArrayList<>();
 	private Boolean occupiedSpace = false;
 	private GraphicsContext context;
-	private SlowTower slowtower;
+	private Color myColor;
+	private Rectangle2D.Float hitbox = new Rectangle2D.Float();
+	private int x, y;
 	Timeline loop = new Timeline();
 
-	public Tower(int x, int y, Color myColor, GraphicsContext context) {
-		super(x, y, myColor);
+	public Tower(int x, int y, GraphicsContext context) {
 		this.context = context;
+		this.x = x;
+		this.y = y;
+		
+		hitbox.x = x + 60;
+		hitbox.y = y + 60;
 	
 		loop.setCycleCount(Animation.INDEFINITE);
 	}
 	
-	public void drawYourself(GraphicsContext context, double xsize, double ysize) {
-		
-		context.setFill(getColor());
-		context.fillRect(getX(), getY(), xsize, ysize);
-		
+	public GraphicsContext getContext() {
+		return context;
+	}
+	
+	public Rectangle2D.Float getHitbox() {
+		return hitbox;
+	}
+	
+	public Color getColor() {
+		return myColor;
+	}
+	
+	public ArrayList<Projectile> getProjectiles(){
+		return bullets;
+	}
+	
+	public Boolean getOccupiedSpace() {
+		return occupiedSpace;
+	}
+	
+	public void setOccupiedSpace(Boolean bool) {
+		occupiedSpace = bool;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 	
 	public void drawRect(GraphicsContext context) {
-		context.setFill(getColor());
-		context.fillRect(getX(), getY(), 180, 180);
+		context.setFill(myColor);
+		context.fillRect(hitbox.x, hitbox.y, 180, 180);
 		context.setFill(Color.BLACK);
-		context.fillRect(getX(), getX(), 180, 3);
+		context.fillRect(hitbox.x, hitbox.y, 180, 3);
 		context.setStroke(Color.GREY);
 		context.stroke();
 	}
 	
-	public void drawTower(GraphicsContext context) {
+	public void updateTower(GraphicsContext context) {
 		
 		if (occupiedSpace) {
 			context.setFill(new Color(0, 0, 0, 0.5));
-			context.fillRect(getX() + 60, getY() + 60, 60, 60);
+			context.fillRect(hitbox.x + 60, hitbox.y + 60, 60, 60);
 		}
 		
 	}
@@ -56,31 +88,19 @@ public class Tower extends Shape {
 			occupiedSpace = true;
 		}
 		context.setFill(new Color(0, 0, 0, 0.5));
-		context.fillRect(getX() + 60, getY() + 60, 60, 60);
+		context.fillRect(hitbox.x + 60, hitbox.y + 60, 60, 60);
 		model.getTowers().add(this);
 			
 	}
 	
-	public void addSlowTowerModel(GraphicsContext context, Model model) {
-		slowtower.addTowerModel(context, model);
-	}
-	
 	public void shoot() {
-		int x = getX() + 75;
-		int y = getY() + 75;
+		Float x = hitbox.x + 75;
+		Float y = hitbox.y + 75;
 		
 		Projectile newProjectile = new Projectile(30, 30, Color.WHITE);
 		this.bullets.add(newProjectile);
 		newProjectile.setPos(x, y);
 		newProjectile.drawYourself(context);
-	}
-	
-	public ArrayList<Projectile> getBullets(){
-		return bullets;
-	}
-	
-    public void collision() {
-		bullets.remove(0);
 	}
 	
 	public void shootLoop() {
@@ -103,10 +123,7 @@ public class Tower extends Shape {
 			
 			Projectile projectile = iterator.next();
 			
-			if (projectile.getHitboxPos() > 1280) {
-				iterator.remove();
-			}
-			if (projectile.checkHit()) {
+			if (projectile.getHitboxPos() > 1440 || projectile.checkHit()) {
 				iterator.remove();
 			}
 		}

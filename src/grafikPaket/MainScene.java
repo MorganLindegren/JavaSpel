@@ -97,14 +97,14 @@ public class MainScene extends Application{
 				
 				for (int tower = 0; tower < 8; tower++ ) {
 
-					yAxislist.get(tower).drawTower(context);
+					yAxislist.get(tower).updateTower(context);
 					yAxislist.get(tower).update();
 				}
 			}
 			
 			for (Tower tower : canvas.getIFmodel().getTowers()) {
 				
-				for (Projectile projectile : tower.getBullets()) {
+				for (Projectile projectile : tower.getProjectiles()) {
 					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
 						projectile.checkCollision(enemy);
 					}

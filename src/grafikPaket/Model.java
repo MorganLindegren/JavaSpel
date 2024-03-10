@@ -35,9 +35,9 @@ public class Model {
 		return currentTower;
 	}
 
-	public void addGridRect(Tower rect, int row) {
+	public void addGridRect(Tower tower, int row) {
 		
-		gridPos.get(row).add(rect);
+		gridPos.get(row).add(tower);
 	}
 	
 	public Tower getGridRect(int row, int column) {
