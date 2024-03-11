@@ -19,7 +19,7 @@ public class Shop extends VBox {
 	private ShopLogic shopLogic = new ShopLogic();
 	private TowerButton previousTower;
 	private Model myModel;
-	private Text moneyText, currentScoreText, currentWave;
+	private Text moneyText, currentScoreText, currentWave, currentLevel;
 
 	public Shop(double Height, Model myModel) {
 		
@@ -27,6 +27,11 @@ public class Shop extends VBox {
 		setHeight(Height);
 		setWidth(300);
 		this.myModel = myModel;
+		
+		Text levelText = new Text("Level:");
+		levelText.setFont(new Font(20));
+		currentLevel = new Text(myModel.getLevel().toString());
+		currentLevel.setFont(new Font(30));
 		
 		Text scoreText = new Text("Score:");
 		scoreText.setFont(new Font(20));
@@ -72,6 +77,8 @@ public class Shop extends VBox {
 		setBase.AddTower();
 		setSlow.AddTower();
 		
+		getChildren().add(levelText);
+		getChildren().add(currentLevel);
 		getChildren().add(scoreText);
 		getChildren().add(currentScoreText);
 		getChildren().add(waveText);
@@ -132,5 +139,9 @@ public class Shop extends VBox {
 	
 	public void updateWave() {
 		currentWave.setText(myModel.getWave().toString());
+	}
+	
+	public void updateLevel() {
+		currentLevel.setText(myModel.getLevel().toString());
 	}
 }

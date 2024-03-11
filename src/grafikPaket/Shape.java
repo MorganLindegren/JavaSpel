@@ -13,6 +13,7 @@ public class Shape {
 	private int x, y;
 	private Color myColor;
 	private Tower tower;
+	private Boolean occupiedSpace = false;
 	
 	public Shape(int x, int y, Color myColor){
 		this.x = x;
@@ -46,6 +47,14 @@ public class Shape {
 		
 	}
 	
+	public Boolean getOccupiedSpace() {
+		return occupiedSpace;
+	}
+	
+	public void setOccupiedSpace(Boolean bool) {
+		occupiedSpace = bool;
+	}
+	
 	public void addTower(Model model, GraphicsContext context) {
 		int x,y;
 		x = this.x;
@@ -60,10 +69,20 @@ public class Shape {
 			slow.addTowerModel(context, model);
 			tower = slow;
 		}
+		
+		occupiedSpace = true;
 	}
 	
 	public Tower getShapeTower() {
 		return tower;
+	}
+	
+	public void setShapeTowerNull() {
+		tower = null;
+	}
+	
+	public boolean checkSpace() {
+		return tower != null;
 	}
 	
 }

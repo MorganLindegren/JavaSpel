@@ -5,10 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Group;
@@ -35,8 +37,10 @@ import javafx.animation.*;
 
 public class MainScene extends Application{
 	
-	private Interface canvas = new Interface();
+	private ImageBackground background = new ImageBackground();
+	private Interface canvas = new Interface(3, 6, 10, 12);
 	private Timeline loop = new Timeline();
+
 
 	public static void main(String[] args) {
 		launch(args);
@@ -55,8 +59,7 @@ public class MainScene extends Application{
 		canvas.drawGrid();
 		canvas.setShop(shop);
 		
-		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
-		ImageView iv = new ImageView(background);
+		ImageView iv = new ImageView(background.getImage());
 		
 		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
 		loop.setCycleCount(Animation.INDEFINITE);
@@ -117,6 +120,8 @@ public class MainScene extends Application{
 	public void update(GraphicsContext context) {
 		
 		context.clearRect(0, 0, 1440, 900);
+		if (canvas.getIFmodel().getEnemywave1() != null) {
+			canvas.setSpawnCycles();
 		
 		if (!(canvas == null)) {
 			
@@ -138,10 +143,13 @@ public class MainScene extends Application{
 			
 			
 			if (canvas.getIFmodel().getAliveEnemies().size() > 0) {
-				for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
-					
-					enemy.updateYourself(context);
-					Iterator<Enemy> iterator = canvas.getIFmodel().getAliveEnemies().iterator();
+				for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {		
+					enemy.updateYourself(context);				
+				}
+				
+				Enemy enemy = canvas.getIFmodel().getAliveEnemies().get(0);
+				
+				Iterator<Enemy> iterator = canvas.getIFmodel().getAliveEnemies().iterator();
 										
 					while (iterator.hasNext()) {
 													
@@ -192,13 +200,29 @@ public class MainScene extends Application{
 							} finally {						
 								try {writer.close();} catch (Exception ex) {/*ignore*/}							
 								
-							}										
-						}												
-					}								
-				}								
-			}			
-	}			
-}			
+							
+							}															
+						}														
+					}										
+			}										
+		}
+		
+		if (canvas.getIFmodel().getEnemywave2().isEmpty() && canvas.getIFmodel().getAliveEnemies().isEmpty()
+				&& canvas.getIFmodel().getLevel() == 1)	{
+			
+			canvas.getIFmodel().setLevel();
+			canvas.getShop().updateLevel();
+			canvas.newLevel();
+			
+		}
+		
+		if (canvas.getWin()) {
+			canvas.winText();
+			loop.setCycleCount(1);
+			loop.stop();
+		}
+	}
+}
 	
 
 

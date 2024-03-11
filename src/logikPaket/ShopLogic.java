@@ -25,5 +25,10 @@ public class ShopLogic {
 	public void increaseMoney() {
 		money += 1;
 	}
+	
+	public void setMoney(int i) {
+		
+		money = i;
+	}
 
 }

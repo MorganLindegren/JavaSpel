@@ -12,12 +12,12 @@ public class Model {
 	
 	private ArrayList<ArrayList<Shape>> gridPos = new ArrayList<ArrayList<Shape>>();
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
-	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
-	private Stack<Enemy> enemyWave2 = new Stack<Enemy>();
+	private Stack<Enemy> enemyWave1, enemyWave2, enemyWave3, enemyWave4 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
 	private String currentTower = "base";
 	private Integer score = 0;
-	private Integer wave = 0;
+	private Integer wave = 1;
+	private static Integer level = 1;
 	
 	public Model() {
 		
@@ -61,8 +61,32 @@ public class Model {
 		return enemyWave1;
 	}
 	
+	public void setEnemywave1(Stack<Enemy> wave) {
+		enemyWave1 = wave;
+	}
+	
 	public Stack<Enemy> getEnemywave2() {
 		return enemyWave2;
+	}
+	
+	public void setEnemywave2(Stack<Enemy> wave) {
+		enemyWave2 = wave;
+	}
+	
+	public Stack<Enemy> getEnemywave3() {
+		return enemyWave3;
+	}
+	
+	public void setEnemywave3(Stack<Enemy> wave) {
+		enemyWave3 = wave;
+	}
+	
+	public Stack<Enemy> getEnemywave4() {
+		return enemyWave4;
+	}
+	
+	public void setEnemywave4(Stack<Enemy> wave) {
+		enemyWave4 = wave;
 	}
 	
 	public ArrayList<Enemy> getAliveEnemies() {
@@ -81,7 +105,15 @@ public class Model {
 		return wave;
 	}
 	
-	public void newWave() {
-		wave += 1;
+	public void setWave(int wave) {
+		this.wave = wave;
+	}
+	
+	public Integer getLevel() {
+		return level;
+	}
+	
+	public void setLevel() {
+		level = 2;
 	}
 }

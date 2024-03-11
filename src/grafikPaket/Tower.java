@@ -45,6 +45,7 @@ abstract class Tower {
 	}
 	
 	public ArrayList<Projectile> getProjectiles(){
+		
 		return bullets;
 	}
 	
@@ -93,6 +94,10 @@ abstract class Tower {
 	
 	public void upgradeTower() {
 		
+	}
+	
+	public void stopLoop() {
+		loop.stop();
 	}
 	
 	public void upgradeTowerAS() {
