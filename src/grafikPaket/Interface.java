@@ -3,12 +3,10 @@ package grafikPaket;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.util.Random;
@@ -19,6 +17,7 @@ public class Interface extends Canvas{
 	Timeline spawnTimer = new Timeline();
 	private GraphicsContext context = getGraphicsContext2D();
 	private Boolean gameStart = false;
+	private Shop shop;
 
 	public Interface() {
 		setWidth(1440);
@@ -63,11 +62,42 @@ public class Interface extends Canvas{
 			}
 		}
 		
-		System.out.println(gridModel.getEnemywave1().size());
+		for (int i = 0; i < 40; i++) {
+			
+			Random rand = new Random();
+			int randPos = rand.nextInt(5);
+			
+			if (randPos == 0) {
+				 
+				randPos = 70;
+			} else if (randPos == 1) {
+		
+				randPos = 250;
+			} else if (randPos == 2) {
+		
+				randPos = 430;
+			} else if (randPos == 3) {
+		
+				randPos = 610;
+			} else if (randPos == 4) {			
+		 	
+				randPos = 790;
+			}
+			
+			if (!(i % 5 == 0)) {
+				
+				Enemy enemy = new EnemyBasic(1440, randPos, Color.RED);
+				gridModel.getEnemywave2().push(enemy);
+			} else {
+				
+				Enemy enemy = new EnemySpecial(1440, randPos, Color.PURPLE);
+				gridModel.getEnemywave2().push(enemy);
+			}
+		}
 	}
 	
 	public void startSpawn() {
-		Timeline spawnTimer = new Timeline(new KeyFrame(Duration.millis(1000.0/0.2), event -> spawnEnemy()));
+		Timeline spawnTimer = new Timeline(new KeyFrame(Duration.millis(1000.0/0.5), event -> spawnEnemy()));
 		spawnTimer.setCycleCount(Animation.INDEFINITE);
 		spawnTimer.play();
 	}
@@ -77,6 +107,14 @@ public class Interface extends Canvas{
 			gridModel.getEnemywave1().peek().drawYourself(context);
 			gridModel.getAliveEnemies().add(gridModel.getEnemywave1().peek());
 			gridModel.getEnemywave1().pop();
+		} else {
+			
+			for (int i = 0; i < 3; i++) {
+				System.out.println("Våg 2");
+				gridModel.getEnemywave2().peek().drawYourself(context);
+				gridModel.getAliveEnemies().add(gridModel.getEnemywave2().peek());
+				gridModel.getEnemywave2().pop();
+			}
 		}
 	}
 	
@@ -137,20 +175,27 @@ public class Interface extends Canvas{
 				y = 4;
 			}
 			
-			if (gridModel.getTower().equals("base")) {
-				gridModel.getGridRect(y, x).addTower(gridModel, context);
-			} else if (gridModel.getTower().equals("slow")) {
-				gridModel.getGridRect(y, x).addTower(gridModel, context);
+			if (shop.getShopLogic().getMoney() > 0) {
+				
+				if (gridModel.getTower().equals("base")) {
+					
+					gridModel.getGridRect(y, x).addTower(gridModel, context);
+					shop.getShopLogic().buy();
+					shop.updateMoney();
+			
+				} else if (gridModel.getTower().equals("slow")) {
+				
+					gridModel.getGridRect(y, x).addTower(gridModel, context);
+					shop.getShopLogic().buy();
+					shop.updateMoney();
+			
+				}
 			}
+			
 			if (!gameStart) {
 				createEnemyWaves();
 				startSpawn();
 				gameStart = true;
-			}
-			
-			if (gridModel.getGridRect(y, x).getShapeTower().getOccupiedSpace()) {
-				Button button = new Button("Upgrade Effect");
-				context.add(button);
 			}
 		});
 		
@@ -168,6 +213,15 @@ public class Interface extends Canvas{
 		
 		context.setFill(Color.RED);
 		context.setTextAlign(TextAlignment.CENTER);
+		context.setFont(new Font("Comicsans", 50));
 		context.fillText("GAME OVER", getWidth() / 2 - 50, getHeight() / 2);
+	}
+	
+	public Shop getShop() {
+		return shop;
+	}
+	
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 }

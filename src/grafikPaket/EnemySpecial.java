@@ -15,15 +15,15 @@ public class EnemySpecial extends Enemy {
 	
 	public EnemySpecial(int x, int y, Color myColor) {
 		super(x, y, myColor);
-		
 		this.myColor = myColor;
+		getEnemyLogic().setEnemyHealth(6);
 	}
 	
 	public void drawYourself(GraphicsContext context) {
 		context.setFill(myColor);
 		context.fillRect(getHitbox().x, getHitbox().y, 60, 100);
 		
-		switchTimer = new Timeline(new KeyFrame(Duration.millis(2500), event -> laneSwitchSet()));
+		switchTimer = new Timeline(new KeyFrame(Duration.millis(2000), event -> laneSwitchSet()));
 		switchTimer.setCycleCount(Animation.INDEFINITE);
 		switchTimer.play();
 	}
@@ -38,34 +38,34 @@ public class EnemySpecial extends Enemy {
 	}
 	
 	public void laneSwitchSet() {
-		System.out.println("Byte");
 		
 		Timeline switching = new Timeline();
 		
-		if (getHitbox().y - 45 < 0) {
+		if (!getEnemyLogic().dead()) {
 			
-			switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchDown()));
-		} else if (getHitbox().y + 45 > 900) {
-			
-			switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchUp()));
-		} else {
-			
-			Random rand = new Random();
-			int randPos = rand.nextInt(2);
-			
-			System.out.println(randPos);
-			
-			if (randPos == 0) {
+			if (getHitbox().y - 180 < 0) {
 				
 				switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchDown()));
-			} else {
+			} else if (getHitbox().y + 180 > 900) {
 				
 				switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchUp()));
+			} else {
+				
+				Random rand = new Random();
+				int randPos = rand.nextInt(2);
+				
+				if (randPos == 0) {
+					
+					switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchDown()));
+				} else {
+					
+					switching = new Timeline(new KeyFrame(Duration.millis(1000/10), event -> laneSwitchUp()));
+				}
 			}
+			
+			switching.setCycleCount(4);
+			switching.play();
 		}
-		
-		switching.setCycleCount(4);
-		switching.play();
 	}
 	
 	public void laneSwitchUp() {

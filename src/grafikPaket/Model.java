@@ -9,8 +9,10 @@ public class Model {
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
 	private ArrayList<SlowTower> slowTowers = new ArrayList<SlowTower>();
 	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
+	private Stack<Enemy> enemyWave2 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
 	private String currentTower = "base";
+	private Integer score = 0;
 	
 	public Model() {
 		
@@ -58,7 +60,19 @@ public class Model {
 		return enemyWave1;
 	}
 	
+	public Stack<Enemy> getEnemywave2() {
+		return enemyWave2;
+	}
+	
 	public ArrayList<Enemy> getAliveEnemies() {
 		return aliveEnemy;
+	}
+	
+	public Integer getScore() {
+		return score;
+	}
+	
+	public void increaseScore() {
+		score += 1;
 	}
 }

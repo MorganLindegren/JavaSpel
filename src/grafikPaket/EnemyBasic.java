@@ -1,7 +1,6 @@
 package grafikPaket;
 
 import javafx.scene.canvas.GraphicsContext;
-import logikPaket.EnemyLogic;
 import javafx.scene.paint.Color;
 
 public class EnemyBasic extends Enemy {

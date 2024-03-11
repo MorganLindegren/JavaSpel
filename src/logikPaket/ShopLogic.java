@@ -2,15 +2,22 @@ package logikPaket;
 
 public class ShopLogic {
 	
-	private int money;
+	private static Integer money = 6;
 	
-	public ShopLogic(int money) {
+	public ShopLogic() {
 		
-		this.money = money;
 	}
 	
-	public int getMoney() {
+	public Integer getMoney() {
 		return money;
+	}
+	
+	public void buy() {
+		money -= 1;
+	}
+	
+	public void increaseMoney() {
+		money += 1;
 	}
 
 }

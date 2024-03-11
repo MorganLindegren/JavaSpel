@@ -22,7 +22,7 @@ public class SlowTower extends Tower {
 		
 		context.setFill(myColor);
 		context.fillRect(5, 5, 40, 40);
-
+		
 	}
 	
 	public void updateTower(GraphicsContext context) {
@@ -39,7 +39,12 @@ public class SlowTower extends Tower {
 		float x = getHitbox().x + 25;
 		float y = getHitbox().y + 15;
 		
-		Projectile newProjectile = new SlowProjectile(30, 30, Color.LIGHTBLUE);
+		SlowProjectile newProjectile = new SlowProjectile(30, 30, Color.LIGHTBLUE);
+		
+		if (getTowerLogic().checkUpgraded()) {
+			newProjectile.getProjectileLogic().setSlow(0.15);
+		}
+		
 		this.getProjectiles().add(newProjectile);
 		newProjectile.setPos(x, y);
 		newProjectile.drawYourself(getContext());
@@ -87,7 +92,7 @@ public class SlowTower extends Tower {
 	
 	public void upgradeTower() {
 		
-		getTowerLogic().slowUpgraded();
+		getTowerLogic().doUpgraded();
 	}
 
 }

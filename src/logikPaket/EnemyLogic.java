@@ -22,6 +22,10 @@ public class EnemyLogic {
 		healthPoints -= projectile.getDamage();
 	}
 	
+	public void setEnemyHealth(int i) {
+		healthPoints = i;
+	}
+	
 	public boolean dead() {
 		return healthPoints == 0;
 	}

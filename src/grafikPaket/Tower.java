@@ -2,13 +2,10 @@ package grafikPaket;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import logikPaket.TowerLogic;
 
 abstract class Tower {
@@ -82,11 +79,19 @@ abstract class Tower {
 		if (!occupiedSpace) {
 			shootLoop();
 			occupiedSpace = true;
-		}
-		context.setFill(new Color(0, 0, 0, 0.5));
-		context.fillRect(hitbox.x + 60, hitbox.y + 60, 60, 60);
-		model.getTowers().add(this);
 			
+			context.setFill(new Color(0, 0, 0, 0.5));
+			context.fillRect(hitbox.x + 60, hitbox.y + 60, 60, 60);
+			model.getTowers().add(this);
+		}		
+	}
+	
+	public void upgradeTower() {
+		
+	}
+	
+	public void upgradeTowerAS() {
+		towerLogic.setAttackSpeed(3);
 	}
 	
 	public void shoot() {

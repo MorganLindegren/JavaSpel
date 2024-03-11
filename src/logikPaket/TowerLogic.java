@@ -4,13 +4,12 @@ public class TowerLogic {
 	
 	private double attackSpeed;
 	private int healthPoints = 1;
-	private Boolean dmgUpgrade, slowUpgrade;
+	private Boolean upgraded;
 
 	public TowerLogic(double attackSpeed) {
 		this.attackSpeed = attackSpeed;
 		
-		dmgUpgrade = false;
-		slowUpgrade = false;
+		upgraded = false;
 	}
 	
 	public int getHealthPoints() {
@@ -36,19 +35,15 @@ public class TowerLogic {
 		return healthPoints == 0;
 	}
 	
-	public Boolean checkDmgUpgrade() {
-		return dmgUpgrade;
+	public Boolean checkUpgraded() {
+		return upgraded;
 	}
 	
-	public void dmgUpgraded() {
-		dmgUpgrade = true;
+	public void doUpgraded() {
+		upgraded = true;
 	}
 	
-	public Boolean checkSlowUpgrade() {
-		return slowUpgrade;
-	}
-	
-	public void slowUpgraded() {
-		slowUpgrade = true;
+	public void revertUpgraded() {
+		upgraded = false;
 	}
 }

@@ -8,7 +8,6 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import logikPaket.TowerLogic;
 
 public class BasicTower extends Tower {
 	
@@ -43,8 +42,8 @@ public class BasicTower extends Tower {
 		
 		BasicProjectile newProjectile = new BasicProjectile(30, 30, Color.LIGHTGREEN);
 		
-		if (getTowerLogic().checkDmgUpgrade()) {
-			newProjectile.getProjectileLogic().setDamage(2);;
+		if (getTowerLogic().checkUpgraded()) {
+			newProjectile.getProjectileLogic().setDamage(2);
 		}
 		
 		this.getProjectiles().add(newProjectile);
@@ -54,7 +53,7 @@ public class BasicTower extends Tower {
 	
 	public void shootLoop() {
 		
-		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/1), event -> shootLoop()));
+		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/getTowerLogic().getAttackSpeed()), event -> shootLoop()));
 		loop.play();
 		
 		shoot();
@@ -93,7 +92,7 @@ public class BasicTower extends Tower {
 	
 	public void upgradeTower() {
 		
-		getTowerLogic().dmgUpgraded();
+		getTowerLogic().doUpgraded();
 	}
 
 }

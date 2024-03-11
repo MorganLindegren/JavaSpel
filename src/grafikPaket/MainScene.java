@@ -16,12 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import javafx.scene.control.Button;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Iterator;
-
 import javafx.animation.*;
 
 public class MainScene extends Application{
@@ -44,6 +48,7 @@ public class MainScene extends Application{
 		Shop shop = new Shop(900, canvas.getIFmodel());
 		
 		canvas.drawGrid();
+		canvas.setShop(shop);
 		
 		Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
 		ImageView iv = new ImageView(background);
@@ -54,7 +59,7 @@ public class MainScene extends Application{
 			
 		layout.getChildren().addAll(shop, pane);
 		pane.getChildren().addAll(iv, canvas);	
-		Scene primaryScene = new Scene(layout, 1439, 899);
+		Scene primaryScene = new Scene(layout, 1539, 899);
 		
 		//----------Main menu---------
 		Text gameName = new Text();
@@ -66,15 +71,32 @@ public class MainScene extends Application{
 			primaryStage.setScene(primaryScene);
 		});
 		
+		Button exitButton = new Button("Exit Game");
+		exitButton.setOnAction(e -> {
+			System.exit(0);
+		});
+		
 		Group textGroup = new Group(gameName);
 		
 		VBox menuBox = new VBox();
 		VBox textBox = new VBox();
 		
-		textBox.getChildren().addAll(textGroup);
+		StringBuilder highscore = new StringBuilder();
+		String scoreString = null;
+		
+		BufferedReader reader = new BufferedReader(new FileReader("highscore.txt"));
+		while ((scoreString = reader.readLine()) != null) {
+			highscore.append(scoreString);
+		}	
+		reader.close();
+		
+		Text highScore = new Text("Highscore: " + highscore.toString());
+		highScore.setFont(Font.font("comicsans", FontWeight.BOLD, FontPosture.REGULAR, 40));
+		
+		textBox.getChildren().addAll(textGroup, highScore);
 		textBox.setAlignment(Pos.TOP_CENTER);
 		
-		menuBox.getChildren().addAll(startButton);
+		menuBox.getChildren().addAll(startButton, exitButton);
 		menuBox.setAlignment(Pos.CENTER);
 		
 		StackPane menuRoot = new StackPane();
@@ -152,16 +174,32 @@ public class MainScene extends Application{
 					if (enemy.getEnemyLogic().dead()) {
 						
 						iterator.remove();
+						canvas.getShop().getShopLogic().increaseMoney();
+						canvas.getShop().updateMoney();
+						canvas.getIFmodel().increaseScore();
+						canvas.getShop().updateScore();
 					} else if (enemy.getHitbox().x == 0) {
 						loop.setCycleCount(0);
 						loop.stop();
 						
 						canvas.gameOver();
-					}
-				}
-			}
-		}
-	}
+						Writer writer = null;
+						try {
+							writer = new BufferedWriter(new OutputStreamWriter(
+							          new FileOutputStream("highscore.txt"), "utf-8"));
+							
+							writer.write(canvas.getIFmodel().getScore().toString());
+							
+						} catch (IOException e) {
+							System.out.println(e);
+						} finally {
+							try {writer.close();} catch (Exception ex) {/*ignore*/}
+						}			
+					}				
+				}			
+			}			
+		}		
+	}	
 }
 	
 
