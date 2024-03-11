@@ -8,6 +8,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logikPaket.TowerLogic;
 
+/**
+ * En abstract class som både SlowTower och BasicTower ärver metoder och variabler
+ * som används av båda tornsorterna i spelet
+ */
+
 abstract class Tower {
 	
 	private ArrayList<Projectile> bullets = new ArrayList<>();
@@ -99,10 +104,6 @@ abstract class Tower {
 	
 	public void shootLoop() {
 	}	
-	
-	public void checkCollision(Enemy enemy) {
-		
-	}
 	
 	public void update() {
 		

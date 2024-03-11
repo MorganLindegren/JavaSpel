@@ -5,7 +5,12 @@ import java.awt.geom.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Projectile {
+/**
+ * En abstract klass som har metoder som används av både SlowProjectile och BasicProjectile.
+ * I huvudsak förflyttningen av projektilerna och om de träffat en fiende.
+ */
+
+public abstract class Projectile {
 	
 	private Rectangle2D.Float hitbox;
 	private Boolean hit = false;

@@ -11,9 +11,14 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import java.util.Random;
 
+/**
+ * Är det grafiska gränssnittet i spelet och uppdateras 60x i sekunden av MainScene. Ritar ut
+ * beroende på vad som existerar i listorna i Model (myModel i detta fall)
+ */
+
 public class Interface extends Canvas{
 	
-	private Model gridModel = new Model();
+	private Model myModel = new Model();
 	Timeline spawnTimer = new Timeline();
 	private GraphicsContext context = getGraphicsContext2D();
 	private Boolean gameStart = false;
@@ -53,12 +58,12 @@ public class Interface extends Canvas{
 			if (!(i % 5 == 0)) {		
 					
 				Enemy enemy = new EnemyBasic(1440, randPos, Color.RED);	
-				gridModel.getEnemywave1().push(enemy);
+				myModel.getEnemywave1().push(enemy);
 		
 			} else {
 				
 				Enemy enemy = new EnemySpecial(1440, randPos, Color.PURPLE);
-				gridModel.getEnemywave1().push(enemy);
+				myModel.getEnemywave1().push(enemy);
 			}
 		}
 		
@@ -87,11 +92,11 @@ public class Interface extends Canvas{
 			if (!(i % 5 == 0)) {
 				
 				Enemy enemy = new EnemyBasic(1440, randPos, Color.RED);
-				gridModel.getEnemywave2().push(enemy);
+				myModel.getEnemywave2().push(enemy);
 			} else {
 				
 				Enemy enemy = new EnemySpecial(1440, randPos, Color.PURPLE);
-				gridModel.getEnemywave2().push(enemy);
+				myModel.getEnemywave2().push(enemy);
 			}
 		}
 	}
@@ -103,17 +108,21 @@ public class Interface extends Canvas{
 	}
 	
 	public void spawnEnemy() {
-		if (!gridModel.getEnemywave1().isEmpty()) {
-			gridModel.getEnemywave1().peek().drawYourself(context);
-			gridModel.getAliveEnemies().add(gridModel.getEnemywave1().peek());
-			gridModel.getEnemywave1().pop();
+		if ((myModel.getWave() != 1) && (myModel.getEnemywave1().isEmpty())) {
+			myModel.newWave();
+			shop.updateWave();
+		}
+		if (!myModel.getEnemywave1().isEmpty()) {
+			myModel.getEnemywave1().peek().drawYourself(context);
+			myModel.getAliveEnemies().add(myModel.getEnemywave1().peek());
+			myModel.getEnemywave1().pop();
 		} else {
 			
 			for (int i = 0; i < 3; i++) {
 				System.out.println("Våg 2");
-				gridModel.getEnemywave2().peek().drawYourself(context);
-				gridModel.getAliveEnemies().add(gridModel.getEnemywave2().peek());
-				gridModel.getEnemywave2().pop();
+				myModel.getEnemywave2().peek().drawYourself(context);
+				myModel.getAliveEnemies().add(myModel.getEnemywave2().peek());
+				myModel.getEnemywave2().pop();
 			}
 		}
 	}
@@ -129,7 +138,7 @@ public class Interface extends Canvas{
 			for (int i = 0; i < 8; i++) {
 				
 			    Shape shape = new Shape(xmulti, ymulti, new Color(0, 0, 0, 0));
-				gridModel.addGridRect(shape, row);
+				myModel.addGridRect(shape, row);
 				
 				xmulti += 180;
 				
@@ -177,15 +186,15 @@ public class Interface extends Canvas{
 			
 			if (shop.getShopLogic().getMoney() > 0) {
 				
-				if (gridModel.getTower().equals("base")) {
+				if (myModel.getTower().equals("base")) {
 					
-					gridModel.getGridRect(y, x).addTower(gridModel, context);
+					myModel.getGridRect(y, x).addTower(myModel, context);
 					shop.getShopLogic().buy();
 					shop.updateMoney();
 			
-				} else if (gridModel.getTower().equals("slow")) {
+				} else if (myModel.getTower().equals("slow")) {
 				
-					gridModel.getGridRect(y, x).addTower(gridModel, context);
+					myModel.getGridRect(y, x).addTower(myModel, context);
 					shop.getShopLogic().buy();
 					shop.updateMoney();
 			
@@ -196,17 +205,19 @@ public class Interface extends Canvas{
 				createEnemyWaves();
 				startSpawn();
 				gameStart = true;
+				myModel.newWave();
+				shop.updateWave();
 			}
 		});
 		
 	}
 	
 	public Model getIFmodel() {
-		return gridModel;
+		return myModel;
 	}
 	
 	public Boolean checkIfmodelEmpty() {
-		return gridModel.checkGridEmpty();
+		return myModel.checkGridEmpty();
 	}
 	
 	public void gameOver() {

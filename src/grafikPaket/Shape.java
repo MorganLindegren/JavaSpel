@@ -3,6 +3,11 @@ package grafikPaket;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * En egen rektangulär form som används för att rita ut det osynliga rutnätet som torn kan placeras på,
+ * innehåller även en metod som lägger till tornen på platsen av Shape
+ */
+
 public class Shape {
 
 	private int x, y;

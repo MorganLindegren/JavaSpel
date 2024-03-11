@@ -3,6 +3,10 @@ package grafikPaket;
 import javafx.scene.paint.Color;
 import logikPaket.ProjectileLogicSlow;
 
+/**
+ * En variant av Projectile som saktar ner fienden när de blir träffade
+ */
+
 public class SlowProjectile extends Projectile {
 	
 	private ProjectileLogicSlow projectileLogic = new ProjectileLogicSlow(0.3);

@@ -2,8 +2,12 @@ package logikPaket;
 
 public class TowerLogic {
 	
+	/**
+	 * Håller koll på ett torns eldhastighet och om dess effekt har uppgraderats
+	 * samt uppdaterar eldhastigheten om attack speed buffen köps
+	 */
+	
 	private double attackSpeed;
-	private int healthPoints = 1;
 	private Boolean upgraded;
 
 	public TowerLogic(double attackSpeed) {
@@ -12,27 +16,12 @@ public class TowerLogic {
 		upgraded = false;
 	}
 	
-	public int getHealthPoints() {
-		return healthPoints;
-	}
-	
-	public void towerHit() {
-		healthPoints -= 1;
-		
-		System.out.println("Hej");
-	}
-	
 	public void setAttackSpeed(double AS) {
 		attackSpeed = AS;
 	}
 	
 	public double getAttackSpeed() {
 		return attackSpeed;
-	}
-	
-	public Boolean towerDead() {
-		
-		return healthPoints == 0;
 	}
 	
 	public Boolean checkUpgraded() {

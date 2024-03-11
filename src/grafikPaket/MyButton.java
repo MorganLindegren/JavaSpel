@@ -4,6 +4,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Ansvarar för den grafiska modellen till vår egen knapp
+ * TowerButton
+ */
+
 public abstract class MyButton extends Canvas {
 
 	private GraphicsContext context = getGraphicsContext2D();

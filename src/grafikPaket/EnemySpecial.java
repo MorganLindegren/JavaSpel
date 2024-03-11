@@ -8,6 +8,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * En variant av Enemy som har mer healthPoints i sin EnemyLogic och rör sig
+ * upp och ner på ett intervall
+ */
+
 public class EnemySpecial extends Enemy {
 	
 	Timeline switchTimer = new Timeline();

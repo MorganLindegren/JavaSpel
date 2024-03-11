@@ -2,9 +2,19 @@ package grafikPaket;
 
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Innehåller variabler och metoder som är används av båda fiendesorterna
+ * i spelet
+ */
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logikPaket.EnemyLogic;
+
+/**
+ * En abstract klass som har de funktionerna som både EnemySpecial och EnemyBasic använder,
+ * dessa ansvarar för förlyttningen av fienden och uppdaterar EnemyLogic om de blivit träffade
+ */
 
 public abstract class Enemy {
 	

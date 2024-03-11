@@ -9,12 +9,17 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 
+/**
+ * En sidopanel som innehåller information om hur mycket pengar spelaren har,
+ * vilken våg av fiender den är på och hur mycket poäng spelaren har nu.
+ */
+
 public class Shop extends VBox {
 	
 	private ShopLogic shopLogic = new ShopLogic();
 	private TowerButton previousTower;
 	private Model myModel;
-	private Text moneyText, currentScoreText;
+	private Text moneyText, currentScoreText, currentWave;
 
 	public Shop(double Height, Model myModel) {
 		
@@ -23,15 +28,21 @@ public class Shop extends VBox {
 		setWidth(300);
 		this.myModel = myModel;
 		
-		Text text = new Text("Money:");
-		text.setFont(new Font(14));
-		moneyText = new Text(shopLogic.getMoney().toString());
-		moneyText.setFont(new Font(20));
-		
 		Text scoreText = new Text("Score:");
 		scoreText.setFont(new Font(20));
 		currentScoreText = new Text(myModel.getScore().toString());
 		currentScoreText.setFont(new Font(30));
+		
+		Text waveText = new Text("Wave:");
+		waveText.setFont(new Font(16));
+		currentWave = new Text(myModel.getWave().toString());
+		currentWave.setFont(new Font(25));
+		
+		
+		Text text = new Text("Money:");
+		text.setFont(new Font(14));
+		moneyText = new Text(shopLogic.getMoney().toString());
+		moneyText.setFont(new Font(20));
 		
 		TowerButton setBase = new TowerButton(myModel, this, "base");
 		TowerButton setSlow = new TowerButton(myModel, this, "slow");
@@ -63,7 +74,8 @@ public class Shop extends VBox {
 		
 		getChildren().add(scoreText);
 		getChildren().add(currentScoreText);
-		
+		getChildren().add(waveText);
+		getChildren().add(currentWave);
 		getChildren().add(text);
 		getChildren().add(moneyText);
 		getChildren().add(setBase);
@@ -78,7 +90,10 @@ public class Shop extends VBox {
 	}
 	
 	public void updateBorder() {
-		previousTower.removeBorder();
+		
+		if (previousTower.getTowerString() != myModel.getTower()) {
+			previousTower.removeBorder();
+		}
 	}
 	
 	public ShopLogic getShopLogic() {
@@ -113,5 +128,9 @@ public class Shop extends VBox {
 	
 	public void updateScore() {
 		currentScoreText.setText(myModel.getScore().toString());
+	}
+	
+	public void updateWave() {
+		currentWave.setText(myModel.getWave().toString());
 	}
 }

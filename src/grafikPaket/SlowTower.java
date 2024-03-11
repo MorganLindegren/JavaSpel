@@ -9,6 +9,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * En version av Tower som skjuter SlowProjectiles på en loop som saktar ner fienderna.
+ * Håller koll på sina egna projetiler
+ */
+
 public class SlowTower extends Tower {
 	
 	private static Color myColor = Color.DARKBLUE;
@@ -56,15 +61,6 @@ public class SlowTower extends Tower {
 		loop.play();
 		
 		shoot();
-	}
-	
-	public void checkCollision(Enemy enemy) {
-		
-		if (getHitbox().intersects(enemy.getHitbox())) {
-			
-			System.out.println("Träff");
-			getTowerLogic().towerHit();
-		}
 	}
 	
 	public void update() {

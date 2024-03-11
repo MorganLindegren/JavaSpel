@@ -9,6 +9,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * En version av Tower som skjuter BasicProjectiles på en loop som skadar fienderna.
+ * Håller koll på sina egna projektiler
+ */
+
 public class BasicTower extends Tower {
 	
 	private static Color myColor = Color.GREENYELLOW;
@@ -57,15 +62,6 @@ public class BasicTower extends Tower {
 		loop.play();
 		
 		shoot();
-	}
-	
-	public void checkCollision(Enemy enemy) {
-		
-		if (getHitbox().intersects(enemy.getHitbox())) {
-			
-			System.out.println("Träff");
-			getTowerLogic().towerHit();
-		}
 	}
 	
 	public void update() {

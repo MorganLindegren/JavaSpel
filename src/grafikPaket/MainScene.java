@@ -17,7 +17,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -27,6 +26,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
 import javafx.animation.*;
+
+/**
+ * Mainen där spelets UI skaps och spelet startas samt stängs ner, ansvarar även för borttagning av objekt i listorna som används
+ * för det grafiska inom spelet. Uppdaterar även det grafiska gränssnittet Interface canvas. Ansvarar även för att skriva ut
+ * spelarens highscore på en .txt fil om det är högre än det tidigare rekordet
+ */
 
 public class MainScene extends Application{
 	
@@ -119,88 +124,81 @@ public class MainScene extends Application{
 				
 					tower.updateTower(context);
 					tower.update();
-					
-					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
-						
-
-						tower.checkCollision(enemy);
-						
-						Iterator<Tower> iterator = canvas.getIFmodel().getTowers().iterator();
-						
-						while (iterator.hasNext()) {
-							
-							tower = iterator.next();
-							
-							if (tower.getTowerLogic().towerDead()) {
-								
-								iterator.remove();					
-							
-							}						
-						}		
-					}
 			}
 			
 			for (Tower towertemp : canvas.getIFmodel().getTowers()) {			
 				for (Projectile projectile : towertemp.getProjectiles()) {
 					for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
 						
-						projectile.checkCollision(enemy);
-						
-						Iterator<Tower> iterator = canvas.getIFmodel().getTowers().iterator();
-						
-						while (iterator.hasNext()) {
-							
-							towertemp = iterator.next();
-							
-							if (towertemp.getTowerLogic().towerDead()) {
-								
-								iterator.remove();					
+						projectile.checkCollision(enemy);				
 							}			
 						}	
 					}					
 				}
-			}
 			
-			for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
-				
-				enemy.updateYourself(context);
-
-				Iterator<Enemy> iterator = canvas.getIFmodel().getAliveEnemies().iterator();
-				
-				while (iterator.hasNext()) {
+			
+			if (canvas.getIFmodel().getAliveEnemies().size() > 0) {
+				for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {
 					
-					enemy = iterator.next();
-					
-					if (enemy.getEnemyLogic().dead()) {
-						
-						iterator.remove();
-						canvas.getShop().getShopLogic().increaseMoney();
-						canvas.getShop().updateMoney();
-						canvas.getIFmodel().increaseScore();
-						canvas.getShop().updateScore();
-					} else if (enemy.getHitbox().x == 0) {
-						loop.setCycleCount(0);
-						loop.stop();
-						
-						canvas.gameOver();
-						Writer writer = null;
-						try {
-							writer = new BufferedWriter(new OutputStreamWriter(
-							          new FileOutputStream("highscore.txt"), "utf-8"));
+					enemy.updateYourself(context);
+					Iterator<Enemy> iterator = canvas.getIFmodel().getAliveEnemies().iterator();
+										
+					while (iterator.hasNext()) {
+													
+						enemy = iterator.next();						
 							
-							writer.write(canvas.getIFmodel().getScore().toString());
+						if (enemy.getEnemyLogic().dead()) {
+								
+								
+							iterator.remove();
+								
+							canvas.getShop().getShopLogic().increaseMoney();							
+							canvas.getShop().updateMoney();
+								
+							canvas.getIFmodel().increaseScore();							
+							canvas.getShop().updateScore();
 							
-						} catch (IOException e) {
-							System.out.println(e);
-						} finally {
-							try {writer.close();} catch (Exception ex) {/*ignore*/}
-						}			
-					}				
-				}			
+						} else if (enemy.getHitbox().x == 0) {
+								
+							loop.setCycleCount(0);					
+							loop.stop();				
+							canvas.gameOver();	
+							
+							Writer writer = null;		
+							try {
+									
+								
+								StringBuilder highscore = new StringBuilder();							
+								String scoreString = null;												
+								BufferedReader reader = new BufferedReader(new FileReader("highscore.txt"));
+								
+								while ((scoreString = reader.readLine()) != null) {
+									
+									highscore.append(scoreString);						
+								}	
+									
+								reader.close();
+														
+									if (Integer.valueOf(highscore.toString()) < canvas.getIFmodel().getScore()) {
+									
+										writer = new BufferedWriter(new OutputStreamWriter
+												(new FileOutputStream("highscore.txt"), "utf-8"));							
+										writer.write(canvas.getIFmodel().getScore().toString());
+									}
+														
+							} catch (IOException e) {
+								
+								System.out.println(e);						
+							} finally {						
+								try {writer.close();} catch (Exception ex) {/*ignore*/}							
+								
+							}										
+						}												
+					}								
+				}								
 			}			
-		}		
-	}	
-}
+	}			
+}			
 	
 
 

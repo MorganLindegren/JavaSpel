@@ -3,6 +3,10 @@ package grafikPaket;
 import javafx.scene.paint.Color;
 import logikPaket.ProjectileLogic;
 
+/*
+ * En variant av Projectile som skadar fienderna när de blir träffade
+ */
+
 public class BasicProjectile extends Projectile {
 	
 	private ProjectileLogic projectileLogic = new ProjectileLogic(1);

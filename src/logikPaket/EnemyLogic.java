@@ -5,6 +5,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+/**
+ * Håller koll på alla värden på fienderna såsom HP, hastighet och
+ * ursprungliga hastigheten. Uppdateras när fienderna blir träffade och
+ * ger sina värden till de motsvarande grafiska klasserna
+ */
+
 public class EnemyLogic {
 
 	private int healthPoints;

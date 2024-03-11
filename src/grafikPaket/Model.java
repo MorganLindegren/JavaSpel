@@ -3,16 +3,21 @@ package grafikPaket;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Håller ordning på alla listor med objekten som används i spelet
+ * samt det torn som just nu är valt, spelarens poäng och våg av fiender
+ */
+
 public class Model {
 	
 	private ArrayList<ArrayList<Shape>> gridPos = new ArrayList<ArrayList<Shape>>();
 	private ArrayList<Tower> towers = new ArrayList<Tower>();
-	private ArrayList<SlowTower> slowTowers = new ArrayList<SlowTower>();
 	private Stack<Enemy> enemyWave1 = new Stack<Enemy>();
 	private Stack<Enemy> enemyWave2 = new Stack<Enemy>();
 	private ArrayList<Enemy> aliveEnemy = new ArrayList<Enemy>();
 	private String currentTower = "base";
 	private Integer score = 0;
+	private Integer wave = 0;
 	
 	public Model() {
 		
@@ -28,10 +33,6 @@ public class Model {
 	
 	public ArrayList<Tower> getTowers(){
 		return towers;
-	}
-	
-	public ArrayList<SlowTower> getSlowTowers(){
-		return slowTowers;
 	}
 	
 	public void setTower(String tower) {
@@ -74,5 +75,13 @@ public class Model {
 	
 	public void increaseScore() {
 		score += 1;
+	}
+	
+	public Integer getWave() {
+		return wave;
+	}
+	
+	public void newWave() {
+		wave += 1;
 	}
 }

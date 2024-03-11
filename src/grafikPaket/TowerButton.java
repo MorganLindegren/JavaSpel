@@ -3,6 +3,11 @@ package grafikPaket;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Ansvarar för bytet av vilket torn som spelaren kan sätta ut och sätter en border på
+ * den som är vald just nu
+ */
+
 public class TowerButton extends MyButton {
 
 	private Model myModel;
@@ -51,6 +56,10 @@ public class TowerButton extends MyButton {
 			SlowTower slow = new SlowTower(30, 30, context);
 			slow.drawTower(context);
 		}
+	}
+	
+	public String getTowerString() {
+		return tower;
 	}
 	
 	public Shop getShop() {

@@ -3,6 +3,10 @@ package grafikPaket;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * En simpel version av Enemy som förflyttar sig framåt i samma fil
+ */
+
 public class EnemyBasic extends Enemy {
 	
 	private Color myColor;
