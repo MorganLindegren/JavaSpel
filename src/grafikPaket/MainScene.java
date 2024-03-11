@@ -5,13 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -49,17 +46,16 @@ public class MainScene extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		//----------Game Scene--------
-		primaryStage.setTitle("Plant on Zombie Warfare");
+		primaryStage.setTitle("Foliage VS Undead");
 		
 		StackPane pane = new StackPane();
 		HBox layout = new HBox();
 		GraphicsContext context = canvas.getGraphicsContext2D();
 		Shop shop = new Shop(900, canvas.getIFmodel());
+		ImageView iv = new ImageView(background.getImage());
 		
 		canvas.drawGrid();
 		canvas.setShop(shop);
-		
-		ImageView iv = new ImageView(background.getImage());
 		
 		loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60), event -> update(context)));
 		loop.setCycleCount(Animation.INDEFINITE);
@@ -139,8 +135,7 @@ public class MainScene extends Application{
 							}			
 						}	
 					}					
-				}
-			
+				}	
 			
 			if (canvas.getIFmodel().getAliveEnemies().size() > 0) {
 				for (Enemy enemy : canvas.getIFmodel().getAliveEnemies()) {		
@@ -157,7 +152,6 @@ public class MainScene extends Application{
 							
 						if (enemy.getEnemyLogic().dead()) {
 								
-								
 							iterator.remove();
 								
 							canvas.getShop().getShopLogic().increaseMoney();							
@@ -167,11 +161,11 @@ public class MainScene extends Application{
 							canvas.getShop().updateScore();
 							
 						} else if (enemy.getHitbox().x == 0) {
-								
+							
 							loop.setCycleCount(0);					
 							loop.stop();				
 							canvas.gameOver();	
-							
+
 							Writer writer = null;		
 							try {
 									

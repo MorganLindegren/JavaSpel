@@ -11,7 +11,7 @@ import javafx.util.Duration;
 
 /**
  * En version av Tower som skjuter SlowProjectiles på en loop som saktar ner fienderna.
- * Håller koll på sina egna projetiler
+ * Håller koll på sina egna projektiler
  */
 
 public class SlowTower extends Tower {

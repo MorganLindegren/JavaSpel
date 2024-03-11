@@ -1,6 +1,5 @@
 package grafikPaket;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
@@ -90,7 +89,7 @@ public class Interface extends Canvas{
 	}
 	
 	public void startSpawn(int cycles) {
-		spawnTimer = new Timeline(new KeyFrame(Duration.millis(1000.0/0.5), event -> spawnEnemy()));
+		spawnTimer = new Timeline(new KeyFrame(Duration.millis(1000.0/0.3), event -> spawnEnemy()));
 		spawnTimer.setCycleCount(cycles);
 		spawnTimer.play();
 	}
@@ -115,7 +114,6 @@ public class Interface extends Canvas{
 			myModel.getAliveEnemies().add(myModel.getEnemywave3().peek());
 			myModel.getEnemywave3().pop();
 		} else if (!myModel.getEnemywave4().isEmpty()) {
-
 			
 			for (int i = 0; i < 3; i++) {
 				myModel.getEnemywave4().peek().drawYourself(context);

@@ -7,8 +7,7 @@ public class ImageBackground {
 	Image background = new Image(getClass().getResourceAsStream(("GreenGrass.jpg")));
 	
 	public ImageBackground() {
-		
-		
+			
 	}
 	
 	public void setBackground() {

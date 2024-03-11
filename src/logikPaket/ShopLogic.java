@@ -19,7 +19,7 @@ public class ShopLogic {
 	}
 	
 	public void buy() {
-		money -= 1;
+		money -= 1;	
 	}
 	
 	public void increaseMoney() {

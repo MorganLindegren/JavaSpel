@@ -43,7 +43,6 @@ public class Shop extends VBox {
 		currentWave = new Text(myModel.getWave().toString());
 		currentWave.setFont(new Font(25));
 		
-		
 		Text text = new Text("Money:");
 		text.setFont(new Font(14));
 		moneyText = new Text(shopLogic.getMoney().toString());
@@ -53,17 +52,25 @@ public class Shop extends VBox {
 		TowerButton setSlow = new TowerButton(myModel, this, "slow");
 		Button upgradeEffect = new Button("2x DMG, 5s");
 		upgradeEffect.setOnAction(event -> {
-			upgradeTowerDMG();
-			shopLogic.buy();
-			updateMoney();
+			if (shopLogic.getMoney() > 0) {
+				upgradeTowerDMG();
+				shopLogic.buy();
+				updateMoney();
+			} else {
+				System.out.println("No Funds!");
+			}
 		});
 		upgradeEffect.setMinSize(100, 40);
 		Button upgradeAS = new Button("2x AS, 5s");
 		
 		upgradeAS.setOnAction(event -> {
-			upgradeTowerAS();
-			shopLogic.buy();
-			updateMoney();
+			if (shopLogic.getMoney() > 0) {
+				upgradeTowerAS();
+				shopLogic.buy();
+				updateMoney();
+			} else {
+				System.out.println("No Funds!");
+			}
 		});
 		upgradeAS.setMinSize(100, 40);
 		

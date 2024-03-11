@@ -19,7 +19,7 @@ import logikPaket.EnemyLogic;
 public abstract class Enemy {
 	
 	private Rectangle2D.Float hitbox;
-	private EnemyLogic enemyLogic = new EnemyLogic(3, 3);
+	private EnemyLogic enemyLogic = new EnemyLogic(5, 3);
 	
 	public Enemy(int x, int y, Color myColor) {
 

@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logikPaket.TowerLogic;
+import logikPaket.ProjectileLogic;
 
 /**
  * En abstract class som både SlowTower och BasicTower ärver metoder och variabler
@@ -21,6 +22,7 @@ abstract class Tower {
 	private Color myColor;
 	private Rectangle2D.Float hitbox = new Rectangle2D.Float();
 	private TowerLogic towerLogic = new TowerLogic(1);
+	private ProjectileLogic projectileLogic = new ProjectileLogic(2);
 	Timeline loop = new Timeline();
 
 	public Tower(int x, int y, GraphicsContext context) {
@@ -93,7 +95,7 @@ abstract class Tower {
 	}
 	
 	public void upgradeTower() {
-		
+		projectileLogic.setDamage(4);
 	}
 	
 	public void stopLoop() {
